@@ -80,10 +80,11 @@ function playSound(name) {
 function finishMeasurement() {
   if (scene !== "measure") return;
   clearTimeout(finishTimer);
-  const peakScore = Math.max(0, peak - START_THRESHOLD) * 460;
-  const impulseScore = Math.min(2600, impulse * 48);
-  const sharpness = Math.max(0, peak - lastMagnitude) * 80;
-  const result = Math.max(1, Math.min(9999, Math.round(520 + peakScore + impulseScore + sharpness)));
+  // 40m/s²前後でようやく最高点に近づく、上昇が緩やかな評価曲線。
+  const normalizedPeak = Math.max(0, Math.min(1, (peak - 5) / 35));
+  const peakScore = 8500 * Math.pow(normalizedPeak, 1.5);
+  const impulseScore = Math.min(950, impulse * 18);
+  const result = Math.max(1, Math.min(9999, Math.round(350 + peakScore + impulseScore)));
   document.querySelector("#power").textContent = result.toLocaleString("ja-JP");
   document.querySelector("#rank").textContent =
     result >= 7500 ? "天下無双" : result >= 5000 ? "剣豪" : result >= 2800 ? "達人" : "見習い剣士";
