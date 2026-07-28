@@ -1,1 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101218">
+  <meta name="description" content="数字パネルから、たった1つの素数を見つけるミニゲーム">
+  <title>素数センス PANEL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section id="start-screen" class="screen start-screen">
+      <p class="eyebrow">PRIME NUMBER HUNT</p>
+      <h1>素数<span>センス</span></h1>
+      <p class="catch">ひとつだけの素数を探せ。</p>
+      <div class="how-to">
+        <b>遊び方</b>
+        <p>並んだ数字の中から、素数を1つ選びます。<br>1問10秒、全10問。後半はパネルが増えます。</p>
+      </div>
 
+      <fieldset class="difficulty">
+        <legend>難易度を選ぶ</legend>
+        <label>
+          <input type="radio" name="difficulty" value="1" checked>
+          <span><b>初級</b><small>1〜2桁</small></span>
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="2">
+          <span><b>中級</b><small>3桁のみ</small></span>
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="3">
+          <span><b>上級</b><small>4桁のみ</small></span>
+        </label>
+      </fieldset>
+
+      <button id="start-button" class="primary-button" type="button">ゲームスタート <span>→</span></button>
+      <p class="rules-note">全10問・1問10秒・正解の数字は重複しません</p>
+    </section>
+
+    <section id="game-screen" class="screen game-screen hidden" aria-live="polite">
+      <header class="game-header">
+        <div>
+          <span class="meta-label">QUESTION</span>
+          <strong><span id="question-index">1</span><small>/10</small></strong>
+        </div>
+        <div class="score-block">
+          <span class="meta-label">COMBO SCORE</span>
+          <strong id="score">0</strong>
+        </div>
+      </header>
+
+      <div class="timer" aria-label="残り時間">
+        <div id="timer-bar" class="timer-bar"></div>
+      </div>
+      <p id="feedback" class="feedback" aria-live="assertive"></p>
+
+      <div class="game-info">
+        <div id="streak-badge" class="streak-badge hidden">2 COMBO <b>×1.2</b></div>
+        <p id="stage-note" class="stage-note">4枚から選択・正解 10pt</p>
+      </div>
+      <div class="response-strip">
+        <p id="answer-time" class="answer-time" aria-live="polite"></p>
+        <div id="bonus-pop" class="bonus-pop" aria-hidden="true"></div>
+      </div>
+
+      <div class="panel-stage">
+        <p class="prompt">素数はどれ？</p>
+        <div id="number-grid" class="number-grid" aria-label="数字パネル"></div>
+      </div>
+    </section>
+
+    <section id="result-screen" class="screen result-screen hidden">
+      <p class="eyebrow">RESULT</p>
+      <h2>ゲーム終了！</h2>
+      <p class="result-difficulty">難易度 <b id="result-difficulty">初級</b></p>
+      <div class="result-score">
+        <span>TOTAL SCORE</span>
+        <strong id="final-score">0</strong>
+        <small>POINTS</small>
+        <div class="score-formula">
+          <span id="combo-score-result">0</span>
+          <i>×</i>
+          <span>タイム <b id="time-multiplier">1.00</b></span>
+          <span id="correct-bonus-result" class="correct-bonus-result hidden"></span>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div><span>正解</span><strong><b id="correct-count">0</b> / 10</strong></div>
+        <div><span>平均タイム</span><strong><b id="average-time">0.00</b>秒</strong></div>
+        <div><span>最大コンボ</span><strong id="max-streak">0</strong></div>
+      </div>
+      <button id="retry-button" class="primary-button" type="button">もう一度挑戦 <span>↻</span></button>
+      <button id="back-button" class="primary-button secondary-button" type="button">タイトルに戻る <span>←</span></button>
+    </section>
+  </main>
+  <div id="screen-flash" class="screen-flash" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
