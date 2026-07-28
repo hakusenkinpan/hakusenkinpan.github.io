@@ -80,15 +80,12 @@ function playSound(name) {
 function finishMeasurement() {
   if (scene !== "measure") return;
   clearTimeout(finishTimer);
-  // 40m/s²前後でようやく最高点に近づく、上昇が緩やかな評価曲線。
-  const normalizedPeak = Math.max(0, Math.min(1, (peak - 5) / 35));
-  const peakScore = 8500 * Math.pow(normalizedPeak, 1.5);
-  const impulseScore = Math.min(950, impulse * 18);
-  const result = Math.max(1, Math.min(9999, Math.round((350 + peakScore + impulseScore) * 0.5)));
+  // 40m/s²を1点、120m/s²を約500点、200m/s²を999点として直線評価。
+  const result = Math.max(1, Math.min(999, Math.round(((peak - 40) / 160) * 999)));
   document.querySelector("#power").textContent = result.toLocaleString("ja-JP");
   document.querySelector("#peakAcceleration").textContent = peak.toFixed(1);
   document.querySelector("#rank").textContent =
-    result >= 7500 ? "天下無双" : result >= 5000 ? "剣豪" : result >= 2800 ? "達人" : "見習い剣士";
+    result >= 900 ? "天下無双" : result >= 700 ? "剣豪" : result >= 400 ? "達人" : "見習い剣士";
   showScene("result");
 }
 
