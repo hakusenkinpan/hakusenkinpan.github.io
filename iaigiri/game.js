@@ -84,7 +84,7 @@ function finishMeasurement() {
   const normalizedPeak = Math.max(0, Math.min(1, (peak - 5) / 35));
   const peakScore = 8500 * Math.pow(normalizedPeak, 1.5);
   const impulseScore = Math.min(950, impulse * 18);
-  const result = Math.max(1, Math.min(9999, Math.round((350 + peakScore + impulseScore) * 0.5)));
+  const result = Math.max(1, Math.min(9999, Math.round((350 + peakScore + impulseScore) * 0.1)));
   document.querySelector("#power").textContent = result.toLocaleString("ja-JP");
   document.querySelector("#rank").textContent =
     result >= 7500 ? "天下無双" : result >= 5000 ? "剣豪" : result >= 2800 ? "達人" : "見習い剣士";
