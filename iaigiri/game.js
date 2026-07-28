@@ -85,7 +85,7 @@ function finishMeasurement() {
   document.querySelector("#power").textContent = result.toLocaleString("ja-JP");
   document.querySelector("#peakAcceleration").textContent = peak.toFixed(1);
   document.querySelector("#rank").textContent =
-    result >= 900 ? "天下無双" : result >= 700 ? "剣豪" : result >= 600 ? "達人" : "見習い剣士";
+    result >= 700 ? "天下無双" : result >= 600 ? "剣豪" : result >= 500 ? "達人" : "素人";
   showScene("result");
 }
 
