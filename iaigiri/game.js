@@ -13,6 +13,15 @@ const game = document.querySelector(".game");
 const countdown = document.querySelector("#countdown");
 const meter = document.querySelector("#motionMeter");
 const errorMessage = document.querySelector("#errorMessage");
+const sounds = {
+  start: new Audio("start.mp3"),
+  slash: new Audio("slash.mp3"),
+};
+
+Object.keys(sounds).forEach(function (name) {
+  sounds[name].preload = "auto";
+  sounds[name].setAttribute("playsinline", "");
+});
 
 let scene = "title";
 let startedAt = 0;
@@ -24,6 +33,7 @@ let quietSince = null;
 let slashPlayed = false;
 let finishTimer = null;
 let gravity = { x: 0, y: 0, z: 0 };
+let audioUnlocked = false;
 
 function showScene(next) {
   scene = next;
@@ -33,10 +43,38 @@ function showScene(next) {
   game.className = `game scene-${next}`;
 }
 
-function playSound(path) {
-  const audio = new Audio(path);
-  audio.preload = "auto";
-  audio.play().catch(() => {});
+function unlockAudio() {
+  if (audioUnlocked) return Promise.resolve();
+
+  const attempts = Object.keys(sounds).map(function (name) {
+    const audio = sounds[name];
+    audio.muted = true;
+    audio.currentTime = 0;
+
+    return audio.play().then(function () {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.muted = false;
+    }).catch(function () {
+      audio.muted = false;
+    });
+  });
+
+  audioUnlocked = true;
+  return Promise.all(attempts);
+}
+
+function playSound(name) {
+  const audio = sounds[name];
+  audio.pause();
+  audio.currentTime = 0;
+  audio.muted = false;
+  audio.volume = 1;
+  audio.play().catch(function () {
+    errorMessage.textContent =
+      "音声を再生できませんでした。消音モードとブラウザの音声設定をご確認ください。";
+    errorMessage.hidden = false;
+  });
 }
 
 function finishMeasurement() {
@@ -60,7 +98,7 @@ function beginMeasurement() {
   startedAt = lastAt = performance.now();
   meter.style.setProperty("--level", "0%");
   showScene("measure");
-  playSound("start.mp3");
+  playSound("start");
   finishTimer = setTimeout(finishMeasurement, MAX_MEASURE_MS);
 }
 
@@ -91,7 +129,7 @@ function handleMotion(event) {
   if (magnitude >= START_THRESHOLD && !slashPlayed) {
     slashPlayed = true;
     quietSince = null;
-    playSound("slash.mp3");
+    playSound("slash");
   }
 
   if (slashPlayed && now - startedAt > 450) {
@@ -108,6 +146,7 @@ function handleMotion(event) {
 async function startGame() {
   errorMessage.textContent = "センサーの利用可否を確認しています…";
   errorMessage.hidden = false;
+  const audioUnlocking = unlockAudio();
 
   if (location.protocol === "file:") {
     errorMessage.textContent =
@@ -138,6 +177,7 @@ async function startGame() {
     }
   }
 
+  await audioUnlocking;
   errorMessage.hidden = true;
   countdown.textContent = "3";
   showScene("ready");
