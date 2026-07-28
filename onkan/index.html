@@ -1,1 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2ea">
+  <title>音感テスト</title>
+  <meta name="description" content="5つの音を聴いて、音感を試すミニゲーム。">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="brand" aria-label="音感テスト">
+      <span class="brand-mark" aria-hidden="true">♪</span>
+      <span>音感テスト</span>
+    </header>
 
+    <section id="title-screen" class="screen title-screen">
+      <div class="eyebrow">EAR TRAINING · 5 QUESTIONS</div>
+      <h1>音を聴く。<br><em>感覚で、答える。</em></h1>
+      <p class="lead">5つの音から、あなたの音感を測ります。<br>まずは難易度を選んでください。</p>
+
+      <div class="difficulty-grid" role="group" aria-label="難易度を選択">
+        <button class="difficulty selected" data-level="intro" type="button">
+          <span class="level-no">01</span><strong>入門</strong>
+          <small>中央のドレミファソラシ</small>
+        </button>
+        <button class="difficulty" data-level="easy" type="button">
+          <span class="level-no">02</span><strong>初級</strong>
+          <small>全オクターブの白鍵</small>
+        </button>
+        <button class="difficulty" data-level="medium" type="button">
+          <span class="level-no">03</span><strong>中級</strong>
+          <small>半音を含むすべての音</small>
+        </button>
+        <button class="difficulty" data-level="advanced" type="button">
+          <span class="level-no">04</span><strong>上級</strong>
+          <small>周波数を直接入力</small>
+        </button>
+      </div>
+      <button id="start-btn" class="primary-btn" type="button">テストをはじめる <span>→</span></button>
+      <p class="range-note">基準音 A4 = 440 Hz　／　出題範囲 C3–C7</p>
+    </section>
+
+    <section id="quiz-screen" class="screen quiz-screen hidden" aria-live="polite">
+      <div class="quiz-top">
+        <span id="quiz-level" class="level-pill">入門</span>
+        <span id="progress-text">QUESTION 1 / 5</span>
+      </div>
+      <div class="progress-track"><span id="progress-bar"></span></div>
+      <div class="sound-stage">
+        <button id="replay-btn" class="sound-button" type="button" aria-label="音をもう一度聴く">
+          <span class="sound-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+        <h2>この音は？</h2>
+        <p>丸いボタンで何度でも聴けます</p>
+      </div>
+      <div id="note-answer" class="answer-area">
+        <div id="note-buttons" class="note-grid"></div>
+      </div>
+      <form id="frequency-answer" class="answer-area frequency-form hidden">
+        <label for="frequency-input">聞こえた周波数を入力</label>
+        <div class="frequency-input-wrap">
+          <input id="frequency-input" type="number" min="1" max="5000" step="0.01" inputmode="decimal" placeholder="440.00" autocomplete="off">
+          <span>Hz</span>
+        </div>
+        <button class="primary-btn" type="submit">この答えで決定 <span>→</span></button>
+      </form>
+    </section>
+
+    <section id="result-screen" class="screen result-screen hidden" aria-live="polite">
+      <div class="result-heading">
+        <div>
+          <div class="eyebrow">YOUR RESULT</div>
+          <h1>テスト完了。</h1>
+          <p><span id="result-level">入門</span> · 5問</p>
+        </div>
+        <div class="score-card">
+          <span>SCORE</span>
+          <strong id="score-number">999</strong>
+          <small>/ 999</small>
+        </div>
+      </div>
+      <div class="result-table-wrap">
+        <table>
+          <thead><tr><th>問</th><th>あなたの回答</th><th>正解</th><th>差</th><th>音</th></tr></thead>
+          <tbody id="result-body"></tbody>
+        </table>
+      </div>
+      <div class="result-actions">
+        <button id="retry-btn" class="primary-btn" type="button">もう1度挑戦 <span>↻</span></button>
+        <button id="home-btn" class="secondary-btn" type="button">タイトルに戻る</button>
+      </div>
+    </section>
+  </main>
+  <footer>HEADPHONES RECOMMENDED <span>・</span> SOUND ON</footer>
+  <script src="app.js"></script>
+</body>
+</html>
