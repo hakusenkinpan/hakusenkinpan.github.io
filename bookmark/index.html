@@ -1,1 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>My Bookmarks</title>
+  <meta name="description" content="端末内に保存する、シンプルなオンラインブックマーク">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <h1>My Bookmarks</h1>
+    </header>
 
+    <section class="entry" aria-label="ブックマーク入力">
+      <div class="fields">
+        <label>
+          <span class="sr-only">タイトル</span>
+          <input id="titleInput" type="text" placeholder="タイトルを入力" autocomplete="off">
+        </label>
+        <label>
+          <span class="sr-only">URL</span>
+          <input id="urlInput" type="url" placeholder="https://" inputmode="url" autocomplete="url">
+        </label>
+      </div>
+      <button id="bookmarkButton" class="bookmark-button" type="button" aria-label="ブックマークに登録" title="ブックマークに登録">
+        <span aria-hidden="true">☆</span>
+      </button>
+    </section>
+
+    <section class="toolbar" aria-label="操作">
+      <label class="tool-button edit-toggle">
+        <span class="tool-icon" aria-hidden="true">✎</span>
+        <span>編集</span>
+        <input id="editMode" type="checkbox" role="switch">
+        <span class="switch" aria-hidden="true"></span>
+      </label>
+      <button id="randomButton" class="tool-button" type="button">
+        <span class="tool-icon" aria-hidden="true">⤨</span>
+        <span>ランダムアクセス</span>
+      </button>
+      <button id="helpButton" class="tool-button" type="button">
+        <span class="help-icon" aria-hidden="true">?</span>
+        <span>使い方</span>
+      </button>
+    </section>
+
+    <p id="editNotice" class="edit-notice" hidden>編集モード：カードを選ぶと内容を変更できます。入力内容は自動保存されます。</p>
+    <section id="bookmarkGrid" class="bookmark-grid" aria-label="保存済みブックマーク"></section>
+    <section id="emptyState" class="empty-state" hidden>
+      <div class="empty-star" aria-hidden="true">☆</div>
+      <h2>ブックマークはまだありません</h2>
+      <p>上の入力欄から追加するか、ブックマークレットを使って今見ているページを保存できます。</p>
+    </section>
+  </main>
+
+  <dialog id="helpDialog" class="help-dialog">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow">HOW TO USE</p>
+        <h2>使い方</h2>
+      </div>
+      <button id="closeHelpButton" class="close-button" type="button" aria-label="閉じる">×</button>
+    </div>
+    <div class="help-content">
+      <section>
+        <h3>ブックマークを追加</h3>
+        <p>タイトルとURLを入力し、青い星ボタンを押します。通常時にカードを押すと、そのサイトを新しいタブで開きます。</p>
+      </section>
+      <section>
+        <h3>編集・削除</h3>
+        <p>「編集」をオンにしてカードを選びます。上の入力欄を書き換えると自動保存され、星ボタンを押すと登録を解除できます。</p>
+      </section>
+      <section class="bookmarklet-section">
+        <h3>今見ているページから追加</h3>
+        <p>下のボタンをブックマークバーへドラッグするか、コードをコピーしてブラウザのブックマークURL欄へ貼り付けてください。</p>
+        <a id="bookmarkletLink" class="bookmarklet-link" href="#">＋ このページを保存</a>
+        <button id="copyBookmarkletButton" class="copy-button" type="button">ブックマークレットをコピー</button>
+        <p id="copyStatus" class="copy-status" role="status" aria-live="polite"></p>
+      </section>
+      <p class="storage-note">保存内容はこのブラウザのローカルストレージにのみ記録されます。</p>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
