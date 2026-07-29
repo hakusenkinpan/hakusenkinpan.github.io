@@ -1,1 +1,60 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8df" />
+    <title>EMOJI SQUISH — 絵文字を、ぼよよん。</title>
+    <meta
+      name="description"
+      content="好きな絵文字を選んで、押して、引っぱって遊べる小さなウェブトイ。"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <p class="eyebrow">EMOJI SQUISH</p>
+        <h1>絵文字を、<br /><span>ぼよよん。</span></h1>
+        <p class="lead">好きな顔を選んで、押したり引っぱったりしてみよう。</p>
+      </header>
 
+      <section class="picker-panel" aria-labelledby="picker-title">
+        <div class="section-heading">
+          <h2 id="picker-title">きょうの顔</h2>
+          <p>タップで着せかえ</p>
+        </div>
+        <div class="picker" role="radiogroup" aria-label="絵文字を選ぶ">
+          <button class="emoji-choice is-selected" type="button" role="radio" aria-checked="true" data-emoji="🥺" aria-label="うるうる顔">🥺</button>
+          <button class="emoji-choice" type="button" role="radio" aria-checked="false" data-emoji="😡" aria-label="怒った顔">😡</button>
+          <button class="emoji-choice" type="button" role="radio" aria-checked="false" data-emoji="🤓" aria-label="メガネ顔">🤓</button>
+          <button class="emoji-choice" type="button" role="radio" aria-checked="false" data-emoji="😭" aria-label="泣き顔">😭</button>
+          <button class="emoji-choice" type="button" role="radio" aria-checked="false" data-emoji="🤔" aria-label="考える顔">🤔</button>
+          <button class="emoji-choice" type="button" role="radio" aria-checked="false" data-emoji="😴" aria-label="眠る顔">😴</button>
+          <button class="emoji-choice" type="button" role="radio" aria-checked="false" data-emoji="🥳" aria-label="パーティー顔">🥳</button>
+        </div>
+      </section>
+
+      <section class="playground" aria-label="絵文字を伸ばして遊ぶエリア">
+        <div class="orb-shadow" aria-hidden="true"></div>
+        <button class="squishy" type="button" aria-label="選んだ絵文字。押したまま引っぱってください">
+          <span class="shine" aria-hidden="true"></span>
+          <span class="main-emoji" aria-hidden="true">🥺</span>
+        </button>
+
+        <div class="hint" aria-hidden="true">
+          <span class="hint-line"></span>
+          <span>押したまま<br /><strong>ぐ〜っと引っぱる</strong></span>
+        </div>
+      </section>
+
+      <footer>
+        <p>離すと元どおり。何度でも、ぼよよん。</p>
+        <button class="sound-toggle" type="button" aria-pressed="true">
+          <span aria-hidden="true">♪</span> SOUND ON
+        </button>
+      </footer>
+    </main>
+  </body>
+</html>
