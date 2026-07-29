@@ -211,7 +211,7 @@
     if (event.target === helpDialog) helpDialog.close();
   });
 
-  const bookmarkletCode = `javascript:(()=>{const u=${JSON.stringify(APP_URL)}+'?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href);window.open(u,'_blank','noopener')})()`;
+  const bookmarkletCode = `javascript:(()=>{const blank=location.href==='about:blank';const u=${JSON.stringify(APP_URL)}+(blank?'':'?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href));window.open(u,'_blank','noopener')})()`;
   bookmarkletLink.href = bookmarkletCode;
   $("#copyBookmarkletButton").addEventListener("click", async () => {
     try {
@@ -229,8 +229,10 @@
   });
 
   const params = new URLSearchParams(location.search);
-  const sharedTitle = params.get("title");
-  const sharedUrl = params.get("url");
+  const receivedUrl = params.get("url");
+  const isAboutBlank = receivedUrl?.trim().toLowerCase() === "about:blank";
+  const sharedTitle = isAboutBlank ? null : params.get("title");
+  const sharedUrl = isAboutBlank ? null : receivedUrl;
   if (sharedTitle || sharedUrl) {
     titleInput.value = sharedTitle || "";
     urlInput.value = sharedUrl || "";
@@ -242,6 +244,8 @@
     }
     history.replaceState(null, "", `${location.pathname}${location.hash}`);
     setTimeout(() => showToast(savedBookmark ? "登録済みのページです" : "ページ情報を入力しました"), 200);
+  } else if (isAboutBlank) {
+    history.replaceState(null, "", `${location.pathname}${location.hash}`);
   }
 
   render();
