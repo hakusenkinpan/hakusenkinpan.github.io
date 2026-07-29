@@ -68,10 +68,12 @@
     bookmarkButton.title = label;
   }
 
-  function clearFields() {
+  function resetSelection(clearInputs = true) {
     selectedId = null;
-    titleInput.value = "";
-    urlInput.value = "";
+    if (clearInputs) {
+      titleInput.value = "";
+      urlInput.value = "";
+    }
     setButtonState(false);
     render();
   }
@@ -83,7 +85,7 @@
     bookmarks.forEach(bookmark => {
       const card = document.createElement("button");
       card.type = "button";
-      card.className = `bookmark-card${bookmark.id === selectedId ? " selected" : ""}`;
+      card.className = `bookmark-card${editMode.checked && bookmark.id === selectedId ? " selected" : ""}`;
       card.dataset.id = bookmark.id;
       card.setAttribute("aria-label", `${bookmark.title}を${editMode.checked ? "編集" : "開く"}`);
 
@@ -145,14 +147,18 @@
     const item = { id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`, title, url };
     bookmarks.unshift(item);
     persist();
-    clearFields();
+    selectedId = item.id;
+    titleInput.value = item.title;
+    urlInput.value = item.url;
+    setButtonState(true);
+    render();
     showToast("ブックマークに追加しました");
   }
 
   function removeSelected() {
     bookmarks = bookmarks.filter(item => item.id !== selectedId);
     persist();
-    clearFields();
+    resetSelection(false);
     showToast("ブックマークを解除しました");
   }
 
@@ -186,7 +192,7 @@
 
   editMode.addEventListener("change", () => {
     editNotice.hidden = !editMode.checked;
-    if (!editMode.checked) clearFields();
+    if (!editMode.checked) resetSelection();
     else render();
   });
 
@@ -228,8 +234,14 @@
   if (sharedTitle || sharedUrl) {
     titleInput.value = sharedTitle || "";
     urlInput.value = sharedUrl || "";
+    const normalizedSharedUrl = normalizeUrl(sharedUrl || "");
+    const savedBookmark = bookmarks.find(item => item.url === normalizedSharedUrl);
+    if (savedBookmark) {
+      selectedId = savedBookmark.id;
+      setButtonState(true);
+    }
     history.replaceState(null, "", `${location.pathname}${location.hash}`);
-    setTimeout(() => showToast("ページ情報を入力しました"), 200);
+    setTimeout(() => showToast(savedBookmark ? "登録済みのページです" : "ページ情報を入力しました"), 200);
   }
 
   render();
