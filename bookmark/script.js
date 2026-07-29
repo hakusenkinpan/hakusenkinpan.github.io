@@ -228,6 +228,22 @@
     }
   });
 
+  $("#copyAppUrlButton").addEventListener("click", async () => {
+    const status = $("#appUrlCopyStatus");
+    try {
+      await navigator.clipboard.writeText(APP_URL);
+      status.textContent = "一覧URLをコピーしました。";
+    } catch {
+      const area = document.createElement("textarea");
+      area.value = APP_URL;
+      document.body.append(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+      status.textContent = "一覧URLをコピーしました。";
+    }
+  });
+
   const params = new URLSearchParams(location.search);
   const receivedUrl = params.get("url");
   const isAboutBlank = receivedUrl?.trim().toLowerCase() === "about:blank";

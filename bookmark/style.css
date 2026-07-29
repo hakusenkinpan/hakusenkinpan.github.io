@@ -340,6 +340,7 @@ button.tool-button:hover, .edit-toggle:hover { border-color: #b9d8f5; background
   font-weight: 700;
 }
 .bookmarklet-link { color: #fff; background: var(--blue); text-decoration: none; cursor: grab; }
+.secondary-link { background: #26313d; }
 .copy-button { border: 1px solid #ced3d8; color: var(--ink); background: #fff; cursor: pointer; }
 .help-content .copy-status { min-height: 1.5em; margin-top: 8px; color: #0875c9; font-weight: 600; }
 .help-content .storage-note { margin-top: 8px; font-size: .84rem; }
@@ -375,6 +376,7 @@ button.tool-button:hover, .edit-toggle:hover { border-color: #b9d8f5; background
 @media (max-width: 760px) {
   .app { width: min(100% - 28px, 620px); padding-top: 30px; }
   .brand { margin-bottom: 28px; gap: 14px; }
+  .brand h1 { font-size: clamp(1.45rem, 7vw, 2rem); white-space: nowrap; }
   .brand-mark { width: 28px; height: 40px; }
   .brand-mark::after { border-left-width: 14px; border-right-width: 14px; }
   .entry { grid-template-columns: minmax(0, 1fr) 64px; gap: 10px; }
@@ -468,7 +470,7 @@ button.tool-button:hover, .edit-toggle:hover { border-color: #b9d8f5; background
 
 @media (max-width: 390px) {
   .app { width: min(100% - 20px, 360px); }
-  .brand h1 { font-size: 1.8rem; }
+  .brand h1 { font-size: 1.45rem; }
   .entry { grid-template-columns: minmax(0, 1fr) 58px; }
   .bookmark-button { width: 58px; height: 58px; }
   .bookmark-button span,
