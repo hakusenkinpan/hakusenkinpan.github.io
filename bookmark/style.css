@@ -377,26 +377,102 @@ button.tool-button:hover, .edit-toggle:hover { border-color: #b9d8f5; background
   .brand { margin-bottom: 28px; gap: 14px; }
   .brand-mark { width: 28px; height: 40px; }
   .brand-mark::after { border-left-width: 14px; border-right-width: 14px; }
-  .entry { grid-template-columns: minmax(0, 1fr) 82px; gap: 12px; }
-  .fields { gap: 12px; }
-  .fields input { height: 64px; padding: 0 18px; border-radius: 11px; }
-  .bookmark-button { width: 82px; height: 82px; }
-  .bookmark-button span { font-size: 50px; }
-  .toolbar { grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 38px; }
-  .tool-button { min-height: 62px; gap: 10px; padding: 10px; font-size: .96rem; }
-  #helpButton { grid-column: 1 / -1; }
-  .bookmark-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .bookmark-card { height: 180px; gap: 16px; padding: 18px 10px; }
-  .site-icon, .site-fallback { width: 66px; height: 66px; }
-  .bookmark-title { font-size: 1rem; }
+  .entry { grid-template-columns: minmax(0, 1fr) 64px; gap: 10px; }
+  .fields { gap: 9px; }
+  .fields input {
+    height: 48px;
+    padding: 0 14px;
+    border-width: 1px;
+    border-radius: 9px;
+    font-size: .95rem;
+  }
+  .bookmark-button {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+  }
+  .bookmark-button span,
+  .bookmark-button.is-saved span {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    font-size: 40px;
+    line-height: 1;
+    transform: none;
+  }
+  .toolbar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 18px 0 30px;
+  }
+  .tool-button {
+    min-width: 0;
+    min-height: 52px;
+    gap: 6px;
+    padding: 7px 5px;
+    border-width: 1px;
+    border-radius: 9px;
+    font-size: clamp(.66rem, 2.6vw, .82rem);
+    line-height: 1.25;
+    text-align: center;
+  }
+  #helpButton { grid-column: auto; }
+  .tool-icon { font-size: 1.25rem; }
+  .help-icon {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+    font-size: .85rem;
+  }
+  .switch {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 20px;
+  }
+  .switch::after {
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+  }
+  .edit-toggle input:checked + .switch::after { transform: translateX(14px); }
+  .bookmark-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .bookmark-card {
+    height: 118px;
+    gap: 10px;
+    padding: 12px 5px;
+    border-radius: 9px;
+  }
+  .site-icon, .site-fallback {
+    width: 45px;
+    height: 45px;
+    border-radius: 9px;
+  }
+  .site-fallback { font-size: 1.4rem; }
+  .bookmark-title {
+    font-size: clamp(.62rem, 2.55vw, .78rem);
+    line-height: 1.25;
+  }
+  .bookmark-card.selected::after {
+    top: 4px;
+    right: 4px;
+    padding: 2px 4px;
+    font-size: .52rem;
+  }
 }
 
 @media (max-width: 390px) {
   .app { width: min(100% - 20px, 360px); }
   .brand h1 { font-size: 1.8rem; }
-  .entry { grid-template-columns: minmax(0, 1fr) 68px; }
-  .bookmark-button { width: 68px; height: 76px; }
-  .bookmark-button span { font-size: 44px; }
+  .entry { grid-template-columns: minmax(0, 1fr) 58px; }
+  .bookmark-button { width: 58px; height: 58px; }
+  .bookmark-button span,
+  .bookmark-button.is-saved span { font-size: 36px; }
   .tool-icon { display: none; }
 }
 
