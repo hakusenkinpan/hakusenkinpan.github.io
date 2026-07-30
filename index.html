@@ -3,53 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="hakusenの小さなWebツールとゲームをまとめたページです。">
+    <meta name="theme-color" content="#f7f7f4">
     <title>hakusen</title>
     <style>
+        :root {
+            color-scheme: light;
+            --background: #f7f7f4;
+            --surface: rgba(255, 255, 255, 0.78);
+            --text: #20211f;
+            --muted: #73756f;
+            --line: #dedfd9;
+            --accent: #49675b;
+            --accent-soft: #e8efeb;
+            --shadow: 0 18px 50px rgba(42, 49, 44, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 0 20px;
-            line-height: 1.6;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(134, 164, 149, 0.18), transparent 30rem),
+                radial-gradient(circle at 90% 85%, rgba(218, 198, 166, 0.22), transparent 28rem),
+                var(--background);
+            font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
-        h1 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+
+        .page {
+            width: min(100% - 40px, 920px);
+            margin-inline: auto;
+            padding: 80px 0 40px;
         }
-        ul {
-            list-style: none;
-            padding: 0;
+
+        header {
+            margin-bottom: 52px;
         }
-        li {
-            margin: 15px 0;
-        }
-        a {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #f4f4f4;
-            color: #333;
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 34px;
+            color: var(--text);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
             text-decoration: none;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            text-transform: uppercase;
         }
-        a:hover {
-            background-color: #e0e0e0;
+
+        .brand-mark {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 6px var(--accent-soft);
+        }
+
+        h1 {
+            max-width: 700px;
+            margin: 0;
+            font-size: clamp(2.55rem, 8vw, 5.25rem);
+            font-weight: 600;
+            letter-spacing: -0.055em;
+            line-height: 1.04;
+        }
+
+        .intro {
+            max-width: 540px;
+            margin: 24px 0 0;
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            color: var(--muted);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .section-label::after {
+            width: 56px;
+            height: 1px;
+            background: var(--line);
+            content: "";
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .links li:last-child {
+            grid-column: 1 / -1;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            min-height: 150px;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            overflow: hidden;
+            padding: 26px;
+            border: 1px solid rgba(222, 223, 217, 0.9);
+            border-radius: 18px;
+            color: var(--text);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            backdrop-filter: blur(12px);
+            transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+        }
+
+        .card::before {
+            position: absolute;
+            top: -45px;
+            right: -45px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            content: "";
+            transition: transform 220ms ease;
+        }
+
+        .card:hover {
+            border-color: #c5cec8;
+            box-shadow: 0 22px 60px rgba(42, 49, 44, 0.13);
+            transform: translateY(-3px);
+        }
+
+        .card:hover::before {
+            transform: scale(1.16);
+        }
+
+        .card:focus-visible {
+            outline: 3px solid rgba(73, 103, 91, 0.35);
+            outline-offset: 4px;
+        }
+
+        .card-copy {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card small {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .card strong {
+            display: block;
+            font-size: clamp(1.15rem, 3vw, 1.42rem);
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .arrow {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            width: 38px;
+            height: 38px;
+            flex: 0 0 auto;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--accent);
+            background: #fff;
+            font-size: 1.1rem;
+            transition: transform 180ms ease;
+        }
+
+        .card:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            margin-top: 64px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.76rem;
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                width: min(100% - 28px, 920px);
+                padding-top: 42px;
+            }
+
+            header {
+                margin-bottom: 38px;
+            }
+
+            .brand {
+                margin-bottom: 28px;
+            }
+
+            .links {
+                grid-template-columns: 1fr;
+            }
+
+            .links li:last-child {
+                grid-column: auto;
+            }
+
+            .card {
+                min-height: 128px;
+                padding: 22px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
         }
     </style>
 </head>
 <body>
+    <main class="page">
+        <header>
+            <a class="brand" href="./" aria-label="hakusen トップページ">
+                <span class="brand-mark" aria-hidden="true"></span>
+                hakusen
+            </a>
+            <h1>小さな遊びと、<br>便利なもの。</h1>
+            <p class="intro">気軽に試せるWebツールやゲームをまとめています。気になるものから、どうぞ。</p>
+        </header>
 
-    <h1>トップページ</h1>
+        <nav aria-label="コンテンツ一覧">
+            <div class="section-label">Contents</div>
+            <ul class="links">
+                <li>
+                    <a class="card" href="iaigiri/index.html">
+                        <span class="card-copy"><small>Game</small><strong>居合斬り測定</strong></span>
+                        <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="card" href="primesense/index.html">
+                        <span class="card-copy"><small>Number</small><strong>素数センス</strong></span>
+                        <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="card" href="onkan/index.html">
+                        <span class="card-copy"><small>Sound</small><strong>音感テスト</strong></span>
+                        <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="card" href="bookmark/index.html">
+                        <span class="card-copy"><small>Tool</small><strong>ブックマーク</strong></span>
+                        <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="card" href="puyupeta/index.html">
+                        <span class="card-copy"><small>Collection</small><strong>ぷゆぺたシール帳</strong></span>
+                        <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    <nav>
-        <ul>
-            <li><a href="iaigiri/index.html">居合斬り測定</a></li>
-            <li><a href="primesense/index.html">素数センス</a></li>
-            <li><a href="onkan/index.html">音感テスト</a></li>
-            <li><a href="bookmark/index.html">ブックマーク</a></li>
-            <li><a href="puyupeta/index.html">ぷゆぺたシール帳</a></li>
-        </ul>
-    </nav>
-
+        <footer>
+            <span>hakusen</span>
+            <span>Made for small discoveries.</span>
+        </footer>
+    </main>
 </body>
 </html>
