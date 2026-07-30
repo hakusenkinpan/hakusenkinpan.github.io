@@ -1,1 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7ef">
+  <title>ぷちぷちシール帳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="paper-grain"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ぷちぷちシール帳 ホーム">
+      <span class="brand-mark">P</span>
+      <span><b>ぷちぷち</b><small>シール帳</small></span>
+    </a>
+    <nav class="main-nav" aria-label="メインメニュー">
+      <button class="nav-btn active" data-view="packs"><span>✦</span> パック</button>
+      <button class="nav-btn" data-view="book"><span>▦</span> シール帳</button>
+      <button class="nav-btn" data-view="collection"><span>◉</span> コレクション</button>
+    </nav>
+    <div class="header-count"><span>集めたシール</span><b id="totalCount">0</b><small>枚</small></div>
+  </header>
 
+  <main>
+    <section id="packsView" class="view active">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">TODAY'S STICKER SHOP</p>
+          <h1>どの子に<br><em>会いにいく？</em></h1>
+          <p class="hero-copy">パックを開けて、つやつやのシールを3枚ゲット。<br>ときどきサイズや光りかたが違う、特別な子がいるよ。</p>
+        </div>
+        <div class="hero-stickers" aria-hidden="true">
+          <img data-hero-theme="puyu" alt="">
+          <img data-hero-theme="takoyaki" alt="">
+          <img data-hero-theme="geek" alt="">
+        </div>
+      </div>
+      <div class="section-heading">
+        <div><p>CHOOSE A PACK</p><h2>シールパック</h2></div>
+        <span>1パック · 3枚入り</span>
+      </div>
+      <div id="packGrid" class="pack-grid"></div>
+      <p class="coming-soon"><span>＋</span> 新しいなかまも じゅんび中…</p>
+    </section>
+
+    <section id="bookView" class="view">
+      <div class="book-heading">
+        <div><p class="eyebrow">MY STICKER BOOK</p><h1>わたしのシール帳</h1></div>
+        <p>下のトレイから「貼る」を押して、好きな場所へ。<br>シールはドラッグで動かせるよ。</p>
+      </div>
+      <div class="workspace">
+        <aside class="tool-rail" aria-label="シール操作">
+          <button id="rotateLeft" title="左に回転">↶</button>
+          <button id="rotateRight" title="右に回転">↷</button>
+          <button id="bringFront" title="一番上へ">⇧</button>
+          <button id="peelSticker" class="danger" title="はがす">⌫</button>
+        </aside>
+        <div class="book-shell">
+          <div id="stickerBoard" class="sticker-board" tabindex="0" aria-label="シール帳のページ">
+            <div class="page-date">MY FAVORITE THINGS <span>♡</span></div>
+            <div class="doodle d1">✿</div><div class="doodle d2">⌁</div><div class="doodle d3">☆</div>
+            <div id="emptyBoard" class="empty-board"><b>ここに貼ってみよう</b><span>シールトレイから好きな子を選んでね</span></div>
+          </div>
+          <div class="binding"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+      <div class="tray">
+        <div class="tray-head">
+          <div><span>MY STICKERS</span><h2>シールトレイ</h2></div>
+          <div id="trayFilters" class="filters"></div>
+        </div>
+        <div id="stickerTray" class="sticker-tray"></div>
+      </div>
+    </section>
+
+    <section id="collectionView" class="view">
+      <div class="collection-hero">
+        <div><p class="eyebrow">COLLECTION</p><h1>集めたシール</h1><p>まだ会っていない子は、パックの中で待ってるよ。</p></div>
+        <div class="completion"><b id="completionRate">0%</b><span>ずかん達成</span></div>
+      </div>
+      <div id="collectionGrid" class="collection-grid"></div>
+    </section>
+  </main>
+
+  <div id="packModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button id="closeModal" class="close-modal" aria-label="閉じる">×</button>
+      <p class="eyebrow">PACK OPEN!</p>
+      <h2 id="modalTitle">あたらしいシール！</h2>
+      <div id="revealArea" class="reveal-area"></div>
+      <button id="modalDone" class="primary-btn">シール帳を見る <span>→</span></button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
