@@ -22,7 +22,10 @@
       <button class="nav-btn" data-view="book"><span>▦</span> シール帳</button>
       <button class="nav-btn" data-view="collection"><span>◉</span> コレクション</button>
     </nav>
-    <div class="header-count"><span>集めたシール</span><b id="totalCount">0</b><small>枚</small></div>
+    <div class="header-actions">
+      <button id="openGuide" class="guide-btn" aria-haspopup="dialog"><span>?</span><b>遊び方</b></button>
+      <div class="header-count"><span>集めたシール</span><b id="totalCount">0</b><small>枚</small></div>
+    </div>
   </header>
 
   <main>
@@ -94,6 +97,26 @@
       <h2 id="modalTitle">あたらしいシール！</h2>
       <div id="revealArea" class="reveal-area"></div>
       <button id="modalDone" class="primary-btn">シール帳を見る <span>→</span></button>
+    </div>
+  </div>
+
+  <div id="guideModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
+    <div id="guideBackdrop" class="modal-backdrop"></div>
+    <div class="modal-card guide-card">
+      <button id="closeGuide" class="close-modal" aria-label="閉じる">×</button>
+      <p class="eyebrow">HOW TO PLAY</p>
+      <h2 id="guideTitle">ぷゆぺたの遊び方</h2>
+      <div class="guide-steps">
+        <article><span>01</span><div><b>パックを開ける</b><p>好きなテーマのOPENを押すと、ランダムでシールを3枚ゲット。</p></div></article>
+        <article><span>02</span><div><b>シールを貼る</b><p>シール帳のトレイから「貼る」を押すと、ページの中央に貼られるよ。</p></div></article>
+        <article><span>03</span><div><b>自由にデコる</b><p>ドラッグで移動。選んだシールは回転・前面移動・剥がす操作ができるよ。</p></div></article>
+        <article><span>04</span><div><b>レアを探す</b><p>S・M・L・XLのサイズ違いや、メタリック・レインボーの特別な光り方も。</p></div></article>
+      </div>
+      <div class="save-note"><span>✓</span><p><b>データは自動保存</b><br>このブラウザの端末内に保存されます。</p></div>
+      <section class="update-log" aria-labelledby="updateTitle">
+        <div><p class="eyebrow">UPDATE LOG</p><h3 id="updateTitle">更新ログ</h3></div>
+        <ul><li><time datetime="2026-07-31">7/31</time><span>公開</span></li></ul>
+      </section>
     </div>
   </div>
 

@@ -100,6 +100,14 @@ function closeModal(goBook=false) {
   document.querySelector("#packModal").hidden = true;
   if (goBook) switchView("book");
 }
+function openGuide() {
+  document.querySelector("#guideModal").hidden = false;
+  document.querySelector("#closeGuide").focus();
+}
+function closeGuide() {
+  document.querySelector("#guideModal").hidden = true;
+  document.querySelector("#openGuide").focus();
+}
 
 function renderFilters() {
   const filters = [{key:"all",label:"ぜんぶ"}, ...THEME_KEYS.map(key => ({key,label:CATALOG[key].name}))];
@@ -196,6 +204,9 @@ document.addEventListener("click", e => {
 document.querySelector("#closeModal").onclick = () => closeModal();
 document.querySelector(".modal-backdrop").onclick = () => closeModal();
 document.querySelector("#modalDone").onclick = () => closeModal(true);
+document.querySelector("#openGuide").onclick = openGuide;
+document.querySelector("#closeGuide").onclick = closeGuide;
+document.querySelector("#guideBackdrop").onclick = closeGuide;
 document.querySelector("#rotateLeft").onclick = () => rotateSelected(-15);
 document.querySelector("#rotateRight").onclick = () => rotateSelected(15);
 document.querySelector("#bringFront").onclick = bringFront;
@@ -226,6 +237,7 @@ board.addEventListener("pointerup", () => { if (drag) { saveState(); drag=null; 
 board.addEventListener("pointercancel", () => { if (drag) { saveState(); drag=null; } });
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && !document.querySelector("#packModal").hidden) closeModal();
+  if (e.key === "Escape" && !document.querySelector("#guideModal").hidden) closeGuide();
   if ((e.key === "Delete" || e.key === "Backspace") && selectedId && document.querySelector("#bookView").classList.contains("active")) { e.preventDefault(); peelSelected(); }
 });
 
