@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260731-3">
 </head>
 <body>
   <div class="paper-grain"></div>
@@ -22,10 +22,7 @@
       <button class="nav-btn" data-view="book"><span>▦</span> シール帳</button>
       <button class="nav-btn" data-view="collection"><span>◉</span> コレクション</button>
     </nav>
-    <div class="header-actions">
-      <button id="openGuide" class="guide-btn" aria-haspopup="dialog"><span>?</span><b>遊び方</b></button>
-      <div class="header-count"><span>集めたシール</span><b id="totalCount">0</b><small>枚</small></div>
-    </div>
+    <div class="header-count"><span>集めたシール</span><b id="totalCount">0</b><small>枚</small></div>
   </header>
 
   <main>
@@ -42,6 +39,12 @@
           <img data-hero-theme="geek" alt="">
         </div>
       </div>
+      <aside class="home-update-log" aria-labelledby="homeUpdateTitle">
+        <h2 id="homeUpdateTitle"><span>NEWS</span> 更新ログ</h2>
+        <div class="update-scroll">
+          <p><time datetime="2026-07-31">7/31</time><span>公開</span></p>
+        </div>
+      </aside>
       <div class="section-heading">
         <div><p>CHOOSE A PACK</p><h2>シールパック</h2></div>
         <span>1パック · 3枚入り</span>
@@ -100,27 +103,7 @@
     </div>
   </div>
 
-  <div id="guideModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
-    <div id="guideBackdrop" class="modal-backdrop"></div>
-    <div class="modal-card guide-card">
-      <button id="closeGuide" class="close-modal" aria-label="閉じる">×</button>
-      <p class="eyebrow">HOW TO PLAY</p>
-      <h2 id="guideTitle">ぷゆぺたの遊び方</h2>
-      <div class="guide-steps">
-        <article><span>01</span><div><b>パックを開ける</b><p>好きなテーマのOPENを押すと、ランダムでシールを3枚ゲット。</p></div></article>
-        <article><span>02</span><div><b>シールを貼る</b><p>シール帳のトレイから「貼る」を押すと、ページの中央に貼られるよ。</p></div></article>
-        <article><span>03</span><div><b>自由にデコる</b><p>ドラッグで移動。選んだシールは回転・前面移動・剥がす操作ができるよ。</p></div></article>
-        <article><span>04</span><div><b>レアを探す</b><p>S・M・L・XLのサイズ違いや、メタリック・レインボーの特別な光り方も。</p></div></article>
-      </div>
-      <div class="save-note"><span>✓</span><p><b>データは自動保存</b><br>このブラウザの端末内に保存されます。</p></div>
-      <section class="update-log" aria-labelledby="updateTitle">
-        <div><p class="eyebrow">UPDATE LOG</p><h3 id="updateTitle">更新ログ</h3></div>
-        <ul><li><time datetime="2026-07-31">7/31</time><span>公開</span></li></ul>
-      </section>
-    </div>
-  </div>
-
   <div id="toast" class="toast" role="status"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=20260731-3"></script>
 </body>
 </html>

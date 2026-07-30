@@ -44,11 +44,6 @@ button { color: inherit; }
 .header-count span { font-size: 11px; font-weight: 700; margin-right: 4px; }
 .header-count b { color: var(--pink); font: 800 25px "M PLUS Rounded 1c"; }
 .header-count small { font-weight: 800; }
-.header-actions { display: flex; align-items: center; gap: 14px; }
-.guide-btn { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: white; border-radius: 999px; padding: 7px 11px 7px 7px; cursor: pointer; box-shadow: 0 4px 12px rgba(70,45,36,.06); }
-.guide-btn span { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; background: var(--pink-soft); color: #ad4d68; font: 800 13px "M PLUS Rounded 1c"; }
-.guide-btn b { font-size: 10px; white-space: nowrap; }
-.guide-btn:hover { border-color: var(--pink); transform: translateY(-1px); }
 main { width: min(1180px, 92vw); margin: auto; }
 .view { display: none; animation: enter .35s ease; padding: 50px 0 80px; }
 .view.active { display: block; }
@@ -68,6 +63,13 @@ h1, h2, p { margin-top: 0; }
 .hero-stickers img:nth-child(1) { left: 2%; top: 20px; transform: rotate(-12deg); z-index: 3; }
 .hero-stickers img:nth-child(2) { left: 34%; top: 95px; transform: rotate(8deg); z-index: 4; }
 .hero-stickers img:nth-child(3) { right: 0; top: 12px; transform: rotate(13deg); z-index: 2; }
+.home-update-log { display: grid; grid-template-columns: 125px 1fr; align-items: stretch; margin: 5px 0 26px; background: rgba(255,255,255,.7); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.home-update-log h2 { display: grid; place-content: center; margin: 0; padding: 13px 16px; background: #fff0f3; font: 800 14px "M PLUS Rounded 1c"; }
+.home-update-log h2 span { color: var(--pink); font-size: 8px; letter-spacing: .18em; margin-bottom: 2px; }
+.update-scroll { max-height: 64px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.update-scroll p { min-height: 32px; display: flex; align-items: center; gap: 22px; margin: 0; padding: 7px 16px; border-bottom: 1px dashed #e5d8ce; font-size: 12px; }
+.update-scroll p:last-child { border-bottom: 0; }
+.update-scroll time { color: var(--pink); font-weight: 800; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; margin: 28px 0 20px; }
 .section-heading h2, .tray-head h2 { font: 800 28px "M PLUS Rounded 1c"; margin: 0; }
 .section-heading > span { color: var(--muted); font-size: 12px; }
@@ -182,23 +184,6 @@ h1, h2, p { margin-top: 0; }
 .reveal-card b { display:block;font-size:12px}.reveal-card small{color:var(--pink);font-size:10px;font-weight:800}
 .primary-btn { border: 0; background: var(--pink); color: white; border-radius: 16px; padding: 13px 24px; font-weight: 800; cursor: pointer; box-shadow: inset 0 -4px rgba(125,34,58,.2); }
 .primary-btn span { margin-left: 14px; }
-.guide-card { width: min(680px,95vw); text-align: left; max-height: min(850px,90vh); overflow-y: auto; }
-.guide-card > .eyebrow, .guide-card > h2 { text-align: center; }
-.guide-card > h2 { font: 800 31px "M PLUS Rounded 1c"; margin-bottom: 24px; }
-.guide-steps { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-.guide-steps article { display: flex; gap: 12px; background: white; border: 1px solid var(--line); border-radius: 18px; padding: 15px; }
-.guide-steps article > span { flex: 0 0 34px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: #fff0f3; color: var(--pink); font: 800 11px "M PLUS Rounded 1c"; }
-.guide-steps b { font: 800 14px "M PLUS Rounded 1c"; }
-.guide-steps p { margin: 5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
-.save-note { display: flex; align-items: center; gap: 11px; margin-top: 12px; background: #e8f5ef; border-radius: 16px; padding: 12px 15px; }
-.save-note > span { display: grid; place-items: center; width: 29px; height: 29px; flex: 0 0 29px; border-radius: 50%; background: var(--mint); color: white; font-weight: 800; }
-.save-note p { margin: 0; font-size: 11px; color: #5f7770; line-height: 1.55; }
-.update-log { display: flex; justify-content: space-between; align-items: end; margin-top: 24px; padding-top: 20px; border-top: 1px dashed #d9c8bb; }
-.update-log .eyebrow { margin-bottom: 3px; }
-.update-log h3 { margin: 0; font: 800 19px "M PLUS Rounded 1c"; }
-.update-log ul { list-style: none; margin: 0; padding: 0; }
-.update-log li { display: flex; align-items: center; gap: 18px; background: white; border: 1px solid var(--line); border-radius: 13px; padding: 9px 14px; font-size: 12px; }
-.update-log time { color: var(--pink); font-weight: 800; }
 .toast { position: fixed; left: 50%; bottom: 30px; transform: translate(-50%,20px); background: var(--ink); color:white; padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:.25s; z-index:200; font-size:12px; }
 .toast.show { opacity:1; transform:translate(-50%,0); }
 @media (max-width: 850px) {
@@ -209,10 +194,6 @@ h1, h2, p { margin-top: 0; }
   .brand > span:last-child { min-width: 0; }
   .brand b { display: block; font-size: 15px; white-space: nowrap; }
   .brand small { display: block; font-size: 8px; letter-spacing: .18em; white-space: nowrap; }
-  .header-actions { flex: 0 0 auto; gap: 8px; }
-  .guide-btn { width: 36px; height: 36px; padding: 5px; justify-content: center; }
-  .guide-btn b { display: none; }
-  .guide-btn span { width: 24px; height: 24px; }
   .header-count { flex: 0 0 auto; white-space: nowrap; }
   .header-count span { display: none; }
   .header-count b { font-size: 23px; }
@@ -228,8 +209,7 @@ h1, h2, p { margin-top: 0; }
   main{width:92vw}.view{padding-top:32px}.hero{min-height:0}.hero h1{font-size:42px}.hero-copy br{display:none}.hero-stickers{height:220px}.hero-stickers img{width:145px}.hero-stickers:before{width:260px;height:180px}
   .section-heading>span{display:none}.sticker-tray{grid-template-columns:repeat(3,1fr)}.tray-head{align-items:start;gap:10px;flex-direction:column}.tray-card img{width:62px;height:62px}
   .collection-grid{grid-template-columns:repeat(2,1fr)}.completion{width:105px;height:105px}.modal-card{padding:27px 12px}.reveal-card img{width:88px;height:88px}.reveal-area{gap:5px}.reveal-card{padding:8px 3px}
-  .guide-card { padding: 27px 16px; }
-  .guide-steps { grid-template-columns: 1fr; }
-  .guide-steps article { padding: 12px; }
-  .update-log { align-items: start; }
+  .home-update-log { grid-template-columns: 95px 1fr; margin-bottom: 22px; }
+  .home-update-log h2 { padding: 10px; font-size: 12px; }
+  .update-scroll p { gap: 14px; padding-inline: 12px; }
 }
