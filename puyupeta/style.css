@@ -180,9 +180,19 @@ h1, h2, p { margin-top: 0; }
 .toast { position: fixed; left: 50%; bottom: 30px; transform: translate(-50%,20px); background: var(--ink); color:white; padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:.25s; z-index:200; font-size:12px; }
 .toast.show { opacity:1; transform:translate(-50%,0); }
 @media (max-width: 850px) {
-  .topbar { height: 72px; padding: 0 18px; }.brand{min-width:0}.brand small,.brand b{display:none}.header-count span{display:none}
-  .main-nav { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 60; width: min(94vw,500px); background: rgba(255,255,255,.93); padding: 7px; border-radius: 22px; box-shadow:0 10px 35px rgba(50,30,25,.2); }
-  .nav-btn{flex:1;padding:10px 5px;font-size:11px}.nav-btn span{display:block;margin:0}
+  body { padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
+  .topbar { height: 72px; padding: 0 16px; justify-content: space-between; gap: 10px; }
+  .brand { min-width: 0; flex: 1; overflow: hidden; }
+  .brand-mark { width: 40px; height: 40px; flex: 0 0 40px; }
+  .brand > span:last-child { min-width: 0; }
+  .brand b { display: block; font-size: 15px; white-space: nowrap; }
+  .brand small { display: block; font-size: 8px; letter-spacing: .18em; white-space: nowrap; }
+  .header-count { flex: 0 0 auto; white-space: nowrap; }
+  .header-count span { display: none; }
+  .header-count b { font-size: 23px; }
+  .main-nav { position: fixed; top: auto; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); z-index: 60; width: min(calc(100vw - 24px),500px); background: rgba(255,255,255,.96); padding: 7px; border: 1px solid rgba(233,221,210,.9); border-radius: 22px; box-shadow:0 10px 35px rgba(50,30,25,.2); }
+  .nav-btn { flex: 1; min-width: 0; padding: 8px 3px; font-size: 10px; line-height: 1.25; white-space: nowrap; }
+  .nav-btn span { display:block; margin:0 0 2px; font-size: 15px; }
   .hero{grid-template-columns:1fr;padding-top:20px}.hero-stickers{height:270px}.hero-stickers img{width:175px}
   .pack-grid{grid-template-columns:1fr}.pack-card{min-height:330px}.pack-art{height:180px}
   .book-heading,.collection-hero{align-items:start}.book-heading>p{display:none}.workspace{grid-template-columns:1fr}.tool-rail{order:2;flex-direction:row;justify-content:center}.book-shell{padding:13px 12px 13px 20px}.sticker-board{height:530px}

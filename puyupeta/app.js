@@ -18,7 +18,7 @@ const STORAGE_KEY = "puchipuchi-sealbook-v1";
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 const stickerPath = (theme, design) => {
   const number = String(design + 1).padStart(3, "0");
-  return `assets/stickers/${theme}/${CATALOG[theme].prefix}-${number}.png`;
+  return `assets/stickers/${theme}/${CATALOG[theme].prefix}-${number}.webp`;
 };
 const stickerName = (theme, design) => CATALOG[theme].names[design] || `${CATALOG[theme].name} ${String(design + 1).padStart(3, "0")}`;
 
