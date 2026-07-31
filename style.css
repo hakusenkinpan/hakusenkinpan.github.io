@@ -119,9 +119,9 @@
             list-style: none;
         }
 
-        .cards li:last-child {
-            grid-column: 1 / -1;
-        }
+.cards li:first-child {
+    grid-column: 1 / -1;
+}
 
         .card {
             display: flex;
@@ -297,7 +297,7 @@ footer a:focus-visible {
                 grid-template-columns: 1fr;
             }
 
-            .cards li:last-child {
+            .cards li:first-child {
                 grid-column: auto;
             }
 
