@@ -431,11 +431,31 @@ footer {
   right: 0;
   bottom: max(12px, env(safe-area-inset-bottom));
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
   color: #514a40;
-  font-family: Georgia, serif;
-  font-size: 8px;
-  letter-spacing: 0.34em;
+  font-family: sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-align: center;
+}
+
+footer i {
+  width: 1px;
+  height: 10px;
+  background: #514a40;
+}
+
+footer a {
+  padding: 7px 2px;
+  color: #796e5e;
+  text-decoration: none;
+}
+
+footer a:active {
+  color: var(--gold);
 }
 
 @keyframes reveal {
