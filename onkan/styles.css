@@ -57,7 +57,12 @@ h1 em { color: var(--green); font-family: "Noto Sans JP", "Yu Gothic UI", Meiryo
 .primary-btn:hover { filter: brightness(.96); }
 #start-btn { align-self: flex-start; margin-top: 24px; min-width: 260px; }
 .range-note { color: #8c918e; margin: 18px 0 0; font-size: 11px; letter-spacing: .1em; }
-footer { display: flex; justify-content: center; gap: 12px; padding: 20px; color: #8c918e; font-size: 10px; letter-spacing: .18em; }
+footer {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 12px;
+  padding: 20px; color: #8c918e; font-size: 10px; letter-spacing: .12em;
+}
+footer a { color: inherit; text-underline-offset: 3px; }
+footer a:hover { color: var(--green); }
 
 .quiz-screen { padding: 48px 0; }
 .quiz-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 11px; letter-spacing: .16em; }
