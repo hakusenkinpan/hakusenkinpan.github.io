@@ -1,309 +1,84 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NNLTJRF5');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="hakusenの小さなWebツールとゲームをまとめたページです。">
-    <meta name="theme-color" content="#f7f7f4">
-    <title>hakusen</title>
-    <style>
-        :root {
-            color-scheme: light;
-            --background: #f7f7f4;
-            --surface: rgba(255, 255, 255, 0.78);
-            --text: #20211f;
-            --muted: #73756f;
-            --line: #dedfd9;
-            --accent: #49675b;
-            --accent-soft: #e8efeb;
-            --shadow: 0 18px 50px rgba(42, 49, 44, 0.08);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            margin: 0;
-            color: var(--text);
-            background:
-                radial-gradient(circle at 12% 8%, rgba(134, 164, 149, 0.18), transparent 30rem),
-                radial-gradient(circle at 90% 85%, rgba(218, 198, 166, 0.22), transparent 28rem),
-                var(--background);
-            font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .page {
-            width: min(100% - 40px, 920px);
-            margin-inline: auto;
-            padding: 80px 0 40px;
-        }
-
-        header {
-            margin-bottom: 52px;
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 34px;
-            color: var(--text);
-            font-size: 0.84rem;
-            font-weight: 700;
-            letter-spacing: 0.16em;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .brand-mark {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 6px var(--accent-soft);
-        }
-
-        h1 {
-            max-width: 700px;
-            margin: 0;
-            font-size: clamp(2.55rem, 8vw, 5.25rem);
-            font-weight: 600;
-            letter-spacing: -0.055em;
-            line-height: 1.04;
-        }
-
-        .intro {
-            max-width: 540px;
-            margin: 24px 0 0;
-            color: var(--muted);
-            font-size: clamp(1rem, 2vw, 1.1rem);
-        }
-
-        .section-label {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
-            color: var(--muted);
-            font-size: 0.76rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
-        .section-label::after {
-            width: 56px;
-            height: 1px;
-            background: var(--line);
-            content: "";
-        }
-
-        .links {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 14px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .links li:last-child {
-            grid-column: 1 / -1;
-        }
-
-        .card {
-            position: relative;
-            display: flex;
-            min-height: 150px;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 24px;
-            overflow: hidden;
-            padding: 26px;
-            border: 1px solid rgba(222, 223, 217, 0.9);
-            border-radius: 18px;
-            color: var(--text);
-            background: var(--surface);
-            box-shadow: var(--shadow);
-            text-decoration: none;
-            backdrop-filter: blur(12px);
-            transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-        }
-
-        .card::before {
-            position: absolute;
-            top: -45px;
-            right: -45px;
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: var(--accent-soft);
-            content: "";
-            transition: transform 220ms ease;
-        }
-
-        .card:hover {
-            border-color: #c5cec8;
-            box-shadow: 0 22px 60px rgba(42, 49, 44, 0.13);
-            transform: translateY(-3px);
-        }
-
-        .card:hover::before {
-            transform: scale(1.16);
-        }
-
-        .card:focus-visible {
-            outline: 3px solid rgba(73, 103, 91, 0.35);
-            outline-offset: 4px;
-        }
-
-        .card-copy {
-            position: relative;
-            z-index: 1;
-        }
-
-        .card small {
-            display: block;
-            margin-bottom: 7px;
-            color: var(--muted);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .card strong {
-            display: block;
-            font-size: clamp(1.15rem, 3vw, 1.42rem);
-            font-weight: 600;
-            letter-spacing: -0.025em;
-        }
-
-        .arrow {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            width: 38px;
-            height: 38px;
-            flex: 0 0 auto;
-            place-items: center;
-            border-radius: 50%;
-            color: var(--accent);
-            background: #fff;
-            font-size: 1.1rem;
-            transition: transform 180ms ease;
-        }
-
-        .card:hover .arrow {
-            transform: translateX(3px);
-        }
-
-        footer {
-            display: flex;
-            justify-content: space-between;
-            gap: 24px;
-            margin-top: 64px;
-            padding-top: 22px;
-            border-top: 1px solid var(--line);
-            color: var(--muted);
-            font-size: 0.76rem;
-        }
-
-        @media (max-width: 640px) {
-            .page {
-                width: min(100% - 28px, 920px);
-                padding-top: 42px;
-            }
-
-            header {
-                margin-bottom: 38px;
-            }
-
-            .brand {
-                margin-bottom: 28px;
-            }
-
-            .links {
-                grid-template-columns: 1fr;
-            }
-
-            .links li:last-child {
-                grid-column: auto;
-            }
-
-            .card {
-                min-height: 128px;
-                padding: 22px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                scroll-behavior: auto !important;
-                transition: none !important;
-            }
-        }
-    </style>
+    <meta name="description" content="ぷゆちゃんの楽しいゲームと便利なツールを集めたおもちゃ箱です。">
+    <meta name="theme-color" content="#fff4b8">
+    <title>🥺ぷゆちゃんのおもちゃ箱</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="page">
-        <header>
-            <a class="brand" href="./" aria-label="hakusen トップページ">
-                <span class="brand-mark" aria-hidden="true"></span>
-                hakusen
-            </a>
-            <h1>日常に小さな遊びを</h1>
-            <p class="intro">気軽に試せるWebツールやゲームをまとめています。気になるものから、どうぞ。</p>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNLTJRF5"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <main class="wrapper">
+        <header class="hero">
+            <p class="eyebrow">WELCOME TO MY TOYBOX</p>
+            <h1><span class="face" aria-hidden="true">🥺</span>ぷゆちゃんの<br>おもちゃ箱</h1>
+            <p class="lead">ちいさなゲームと、たのしい道具をあつめたよ。<br>好きなおもちゃを選んでね。</p>
         </header>
 
-        <nav aria-label="コンテンツ一覧">
-            <div class="section-label">Contents</div>
-            <ul class="links">
+        <nav class="toybox" aria-label="おもちゃ一覧">
+            <p class="section-title">なにしてあそぶ？</p>
+            <ul class="cards">
                 <li>
                     <a class="card" href="iaigiri/index.html">
-                        <span class="card-copy"><small>Game</small><strong>居合斬り測定</strong></span>
-                        <span class="arrow" aria-hidden="true">→</span>
+                        <span class="icon" aria-hidden="true">⚔️</span>
+                        <span class="card-copy"><small>はやさにちょうせん</small><strong>居合斬り測定</strong></span>
+                        <span class="arrow" aria-hidden="true">›</span>
                     </a>
                 </li>
                 <li>
                     <a class="card" href="primesense/index.html">
-                        <span class="card-copy"><small>Number</small><strong>素数センス</strong></span>
-                        <span class="arrow" aria-hidden="true">→</span>
+                        <span class="icon" aria-hidden="true">🔢</span>
+                        <span class="card-copy"><small>すうじであそぼう</small><strong>素数センス</strong></span>
+                        <span class="arrow" aria-hidden="true">›</span>
                     </a>
                 </li>
                 <li>
                     <a class="card" href="onkan/index.html">
-                        <span class="card-copy"><small>Sound</small><strong>音感テスト</strong></span>
-                        <span class="arrow" aria-hidden="true">→</span>
+                        <span class="icon" aria-hidden="true">🎵</span>
+                        <span class="card-copy"><small>おとをきいてね</small><strong>音感テスト</strong></span>
+                        <span class="arrow" aria-hidden="true">›</span>
                     </a>
                 </li>
                 <li>
                     <a class="card" href="bookmark/index.html">
-                        <span class="card-copy"><small>Tool</small><strong>ブックマーク</strong></span>
-                        <span class="arrow" aria-hidden="true">→</span>
+                        <span class="icon" aria-hidden="true">🔖</span>
+                        <span class="card-copy"><small>お気に入りをまとめる</small><strong>ブックマーク</strong></span>
+                        <span class="arrow" aria-hidden="true">›</span>
                     </a>
                 </li>
                 <li>
                     <a class="card" href="puyupeta/index.html">
-                        <span class="card-copy"><small>Collection</small><strong>ぷゆぺたシール帳</strong></span>
-                        <span class="arrow" aria-hidden="true">→</span>
+                        <span class="icon" aria-hidden="true">🌟</span>
+                        <span class="card-copy"><small>ぺたぺたあつめよう</small><strong>ぷゆぺたシール帳</strong></span>
+                        <span class="arrow" aria-hidden="true">›</span>
                     </a>
                 </li>
             </ul>
         </nav>
 
-        <footer>
-            <span>hakusen</span>
-            <span>Made for small discoveries.</span>
-        </footer>
+        <a class="diary-button" href="blog/index.html">
+            <span class="diary-icon" aria-hidden="true">📔</span>
+            <span>
+                <small>ぷゆちゃんのきろく</small>
+                <strong>日記帳</strong>
+            </span>
+            <span class="diary-arrow" aria-hidden="true">›</span>
+        </a>
+
+        <footer>© ぷゆちゃんのおもちゃ箱</footer>
     </main>
 </body>
 </html>
+
