@@ -96,6 +96,14 @@ h1, h2, p { margin-top: 0; }
 .book-heading, .collection-hero { display: flex; justify-content: space-between; align-items: end; margin-bottom: 34px; }
 .book-heading h1, .collection-hero h1 { font-size: clamp(34px,4vw,52px); }
 .book-heading > p, .collection-hero p { color: var(--muted); font-size: 13px; line-height: 1.8; }
+.book-scale-control { width: min(430px,100%); margin: -14px 0 22px auto; padding: 12px 15px; background: rgba(255,255,255,.76); border: 1px solid var(--line); border-radius: 17px; }
+.book-scale-control label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; font-size: 11px; font-weight: 800; }
+.book-scale-control output { min-width: 48px; padding: 3px 8px; color: white; background: var(--pink); border-radius: 999px; text-align: center; font: 800 10px "M PLUS Rounded 1c"; }
+.book-scale-control > div { display: grid; grid-template-columns: 31px 1fr 36px; align-items: center; gap: 8px; }
+.book-scale-control small { color: var(--muted); font-size: 9px; text-align: center; }
+.book-scale-control input { width: 100%; height: 20px; margin: 0; accent-color: var(--pink); cursor: pointer; touch-action: pan-x; }
+.book-scale-control input::-webkit-slider-runnable-track { height: 6px; background: linear-gradient(90deg,var(--pink-soft),#f6c768); border-radius: 999px; }
+.book-scale-control input::-webkit-slider-thumb { width: 20px; height: 20px; margin-top: -7px; border: 3px solid white; border-radius: 50%; background: var(--pink); box-shadow: 0 2px 8px rgba(111,50,65,.3); -webkit-appearance: none; }
 .workspace { display: grid; grid-template-columns: 52px 1fr; gap: 14px; }
 .tool-rail { display: flex; flex-direction: column; gap: 8px; align-self: center; }
 .tool-rail button { width: 48px; height: 48px; border: 1px solid var(--line); background: white; border-radius: 15px; cursor: pointer; font-size: 21px; box-shadow: 0 5px 15px rgba(66,45,36,.08); }
@@ -158,8 +166,10 @@ h1, h2, p { margin-top: 0; }
 .tray-card { position: relative; text-align: center; background: #fffaf4; border: 1px solid #eee3d9; border-radius: 18px; padding: 8px 5px 7px; overflow: hidden; }
 .tray-card img { width: 72px; height: 72px; object-fit: contain; display: block; margin: auto; }
 .tray-card button { border: 0; background: #f6e6e7; color: #a85168; border-radius: 999px; padding: 4px 10px; font-size: 10px; font-weight: 800; cursor: pointer; }
-.tray-card .badge { position: absolute; right: 6px; top: 6px; background: var(--ink); color: white; min-width: 22px; padding: 3px 5px; border-radius: 99px; font: 800 9px "M PLUS Rounded 1c"; }
 .tray-card .effect-label { position:absolute; left:5px; top:5px; font-size:10px; }
+.tray-details { display: flex; justify-content: center; align-items: baseline; gap: 5px; margin: -1px 0 5px; white-space: nowrap; }
+.tray-details small { color: var(--muted); font: 700 8px "M PLUS Rounded 1c"; }
+.tray-details b { color: var(--ink); font: 800 9px "M PLUS Rounded 1c"; }
 .empty-tray { grid-column: 1/-1; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
 .completion { width: 130px; height: 130px; border-radius: 50%; display: grid; place-content: center; text-align: center; background: #fff; border: 10px solid var(--pink-soft); box-shadow: var(--shadow); }
 .completion b { color: var(--pink); font: 800 27px "M PLUS Rounded 1c"; }.completion span{font-size:10px;color:var(--muted)}
@@ -203,6 +213,7 @@ h1, h2, p { margin-top: 0; }
   .hero{grid-template-columns:1fr;padding-top:20px}.hero-stickers{height:270px}.hero-stickers img{width:175px}
   .pack-grid{grid-template-columns:1fr}.pack-card{min-height:330px}.pack-art{height:180px}
   .book-heading,.collection-hero{align-items:start}.book-heading>p{display:none}.workspace{grid-template-columns:1fr}.tool-rail{order:2;flex-direction:row;justify-content:center}.book-shell{padding:13px 12px 13px 20px}.sticker-board{height:530px}
+  .book-scale-control { margin: -15px 0 18px; width: 100%; }
   .sticker-tray{grid-template-columns:repeat(4,1fr)}.collection-grid{grid-template-columns:repeat(3,1fr)}.collection-card img{width:90px;height:90px}.collection-card{min-height:150px}
 }
 @media (max-width: 520px) {

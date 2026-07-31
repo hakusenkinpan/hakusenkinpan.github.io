@@ -63,9 +63,12 @@ let drag = null;
 function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved?.inventory && saved?.placed) return saved;
+    if (saved?.inventory && saved?.placed) {
+      saved.bookScale = Math.max(50, Math.min(100, Number(saved.bookScale) || 100));
+      return saved;
+    }
   } catch (_) {}
-  return { inventory: [], placed: [], seen: [], opened: 0 };
+  return { inventory: [], placed: [], seen: [], opened: 0, bookScale: 100 };
 }
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -144,11 +147,30 @@ function renderTray() {
   if (!items.length) {
     tray.innerHTML = `<div class="empty-tray">パックを開けると、ここにシールが並ぶよ</div>`; return;
   }
-  tray.innerHTML = items.map(item => `<div class="tray-card effect-${item.effect}">
-    <span class="badge">${item.size==="xlarge"?"XL":item.size==="large"?"L":item.size==="small"?"S":"M"}</span>
+  const groups = new Map();
+  items.forEach(item => {
+    const key = `${item.theme}|${item.design}|${item.size}|${item.effect}`;
+    const group = groups.get(key);
+    if (group) group.count++;
+    else groups.set(key, { item, count: 1 });
+  });
+  const themeOrder = Object.fromEntries(THEME_KEYS.map((theme, index) => [theme, index]));
+  const sizeOrder = { small: 0, normal: 1, large: 2, xlarge: 3 };
+  const effectOrder = { normal: 0, metallic: 1, rainbow: 2 };
+  const sortedGroups = [...groups.values()].sort((a, b) =>
+    themeOrder[a.item.theme] - themeOrder[b.item.theme] ||
+    a.item.design - b.item.design ||
+    sizeOrder[a.item.size] - sizeOrder[b.item.size] ||
+    effectOrder[a.item.effect] - effectOrder[b.item.effect]
+  );
+  tray.innerHTML = sortedGroups.map(({item, count}) => `<div class="tray-card effect-${item.effect}" title="${stickerName(item.theme,item.design)}">
     <span class="effect-label">${effectIcon(item.effect)}</span>
     <img src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">
-    <button data-place="${item.id}">貼る</button>
+    <div class="tray-details">
+      <small>${CATALOG[item.theme].prefix.toUpperCase()}-${String(item.design + 1).padStart(3, "0")}</small>
+      <b>${item.size==="xlarge"?"XL":item.size==="large"?"L":item.size==="small"?"S":"M"} · ×${count}</b>
+    </div>
+    <button data-place="${item.id}">1枚貼る</button>
   </div>`).join("");
 }
 function placeSticker(id) {
@@ -168,12 +190,24 @@ function renderBook() {
     el.className = `placed-sticker effect-${item.effect}${selectedId===item.id?" selected":""}`;
     el.dataset.id = item.id;
     el.style.left = `${item.x}%`; el.style.top = `${item.y}%`;
-    el.style.setProperty("--size", `${sizePx(item.size)}px`);
+    el.dataset.baseSize = sizePx(item.size);
+    el.style.setProperty("--size", `${Math.round(sizePx(item.size) * state.bookScale / 100)}px`);
     el.style.setProperty("--rotation", `${item.rotation}deg`);
     el.innerHTML = `<img src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">`;
     board.appendChild(el);
   });
   document.querySelector("#emptyBoard").style.display = state.placed.length ? "none" : "grid";
+  document.querySelector("#bookScale").value = state.bookScale;
+  document.querySelector("#bookScaleValue").textContent = `${state.bookScale}%`;
+}
+function setBookScale(value) {
+  state.bookScale = Math.max(50, Math.min(100, Number(value) || 100));
+  document.querySelector("#bookScaleValue").textContent = `${state.bookScale}%`;
+  document.querySelectorAll(".placed-sticker").forEach(sticker => {
+    sticker.style.setProperty("--size", `${Math.round(Number(sticker.dataset.baseSize) * state.bookScale / 100)}px`);
+  });
+  clearTimeout(setBookScale.saveTimer);
+  setBookScale.saveTimer = setTimeout(saveState, 120);
 }
 function rotateSelected(delta) {
   const item = state.placed.find(x => x.id === selectedId);
@@ -232,6 +266,8 @@ document.querySelector("#rotateLeft").onclick = () => rotateSelected(-15);
 document.querySelector("#rotateRight").onclick = () => rotateSelected(15);
 document.querySelector("#bringFront").onclick = bringFront;
 document.querySelector("#peelSticker").onclick = peelSelected;
+document.querySelector("#bookScale").addEventListener("input", event => setBookScale(event.target.value));
+document.querySelector("#bookScale").addEventListener("change", saveState);
 
 const board = document.querySelector("#stickerBoard");
 board.addEventListener("pointerdown", e => {
