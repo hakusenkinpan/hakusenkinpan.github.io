@@ -50,19 +50,23 @@ body {
 .back-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 13px;
+    gap: 10px;
+    min-height: 48px;
+    padding: 11px 19px;
+    border: 2px solid rgba(255, 255, 255, 0.92);
     border-radius: 999px;
-    color: var(--muted);
-    background: rgba(255, 255, 255, 0.55);
-    font-size: 0.78rem;
-    font-weight: 700;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 8px 20px rgba(126, 99, 45, 0.1);
+    font-size: 0.9rem;
+    font-weight: 800;
     text-decoration: none;
-    transition: background-color 180ms ease, transform 180ms ease;
+    transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .back-link:hover {
-    background: rgba(255, 255, 255, 0.92);
+    background: #fff;
+    box-shadow: 0 11px 25px rgba(126, 99, 45, 0.16);
     transform: translateX(-2px);
 }
 
