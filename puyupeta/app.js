@@ -48,12 +48,16 @@ const CATALOG = {
 const THEME_KEYS = Object.keys(CATALOG);
 const STICKERS_PER_PACK = 50;
 const STORAGE_KEY = "puchipuchi-sealbook-v1";
+const IS_LOCAL_FILE = location.protocol === "file:";
+document.documentElement.classList.toggle("file-protocol", IS_LOCAL_FILE);
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 const stickerPath = (theme, design) => {
   const number = String(design + 1).padStart(3, "0");
   return `assets/stickers/${theme}/${CATALOG[theme].prefix}-${number}.webp`;
 };
 const stickerName = (theme, design) => CATALOG[theme].names[design] || `${CATALOG[theme].name} ${String(design + 1).padStart(3, "0")}`;
+const stickerMaskUrl = (theme, design) => new URL(stickerPath(theme, design), document.baseURI).href;
+const stickerMaskStyle = (theme, design) => `--sticker-mask:url("${stickerMaskUrl(theme, design)}")`;
 
 let state = loadState();
 let selectedId = null;
@@ -125,8 +129,12 @@ function openPack(theme) {
   const p = CATALOG[theme];
   document.querySelector("#modalTitle").textContent = `${p.name}が やってきた！`;
   document.querySelector("#revealArea").innerHTML = rewards.map(item => `
-    <div class="reveal-card effect-${item.effect}">
-      <img src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">
+    <div class="reveal-card">
+      <div class="sticker-visual effect-${item.effect}" style='${stickerMaskStyle(item.theme,item.design)}'>
+        <img class="sticker-base" src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">
+        <i class="sticker-effect" aria-hidden="true"></i>
+        <canvas class="sticker-effect-canvas" width="256" height="256" aria-hidden="true"></canvas>
+      </div>
       <b>${stickerName(item.theme,item.design)}</b><small>${effectIcon(item.effect)} ${displayMeta(item)}</small>
     </div>`).join("");
   document.querySelector("#packModal").hidden = false;
@@ -163,9 +171,13 @@ function renderTray() {
     sizeOrder[a.item.size] - sizeOrder[b.item.size] ||
     effectOrder[a.item.effect] - effectOrder[b.item.effect]
   );
-  tray.innerHTML = sortedGroups.map(({item, count}) => `<div class="tray-card effect-${item.effect}" title="${stickerName(item.theme,item.design)}">
+  tray.innerHTML = sortedGroups.map(({item, count}) => `<div class="tray-card" title="${stickerName(item.theme,item.design)}">
     <span class="effect-label">${effectIcon(item.effect)}</span>
-    <img src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">
+    <div class="sticker-visual effect-${item.effect}" style='${stickerMaskStyle(item.theme,item.design)}'>
+      <img class="sticker-base" src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">
+      <i class="sticker-effect" aria-hidden="true"></i>
+      <canvas class="sticker-effect-canvas" width="256" height="256" aria-hidden="true"></canvas>
+    </div>
     <div class="tray-details">
       <small>${CATALOG[item.theme].prefix.toUpperCase()}-${String(item.design + 1).padStart(3, "0")}</small>
       <b>${item.size==="xlarge"?"XL":item.size==="large"?"L":item.size==="small"?"S":"M"} · ×${count}</b>
@@ -193,7 +205,8 @@ function renderBook() {
     el.dataset.baseSize = sizePx(item.size);
     el.style.setProperty("--size", `${Math.round(sizePx(item.size) * state.bookScale / 100)}px`);
     el.style.setProperty("--rotation", `${item.rotation}deg`);
-    el.innerHTML = `<img src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}">`;
+    el.style.setProperty("--sticker-mask", `url("${stickerMaskUrl(item.theme,item.design)}")`);
+    el.innerHTML = `<img class="sticker-base" src="${stickerPath(item.theme,item.design)}" alt="${stickerName(item.theme,item.design)}"><i class="sticker-effect" aria-hidden="true"></i><canvas class="sticker-effect-canvas" width="256" height="256" aria-hidden="true"></canvas>`;
     board.appendChild(el);
   });
   document.querySelector("#emptyBoard").style.display = state.placed.length ? "none" : "grid";
@@ -297,6 +310,40 @@ document.addEventListener("keydown", e => {
   if ((e.key === "Delete" || e.key === "Backspace") && selectedId && document.querySelector("#bookView").classList.contains("active")) { e.preventDefault(); peelSelected(); }
 });
 
+function paintLocalEffects(time) {
+  if (!IS_LOCAL_FILE) return;
+  document.querySelectorAll(".effect-rainbow > .sticker-effect-canvas, .effect-metallic > .sticker-effect-canvas").forEach(canvas => {
+    const image = canvas.parentElement.querySelector(".sticker-base");
+    if (!image?.complete || !image.naturalWidth) return;
+    const ctx = canvas.getContext("2d");
+    const center = 128;
+    ctx.clearRect(0, 0, 256, 256);
+    if (canvas.parentElement.classList.contains("effect-rainbow")) {
+      const gradient = ctx.createConicGradient(time / 850, center, center);
+      [[0,"#ff1969"],[.17,"#ffdc19"],[.34,"#1effa0"],[.51,"#23b4ff"],[.68,"#7350ff"],[.85,"#f523ff"],[1,"#ff1969"]].forEach(([stop,color]) => gradient.addColorStop(stop,color));
+      ctx.globalAlpha = .54 + Math.sin(time / 520) * .08;
+      ctx.fillStyle = gradient;
+    } else {
+      const shift = (Math.sin(time / 620) + 1) * 42;
+      const gradient = ctx.createLinearGradient(-80 + shift, 0, 250 + shift, 256);
+      gradient.addColorStop(0, "#536170");
+      gradient.addColorStop(.35, "#e8f5ff");
+      gradient.addColorStop(.5, "#ffffff");
+      gradient.addColorStop(.68, "#708398");
+      gradient.addColorStop(1, "#f8ffff");
+      ctx.globalAlpha = .52;
+      ctx.fillStyle = gradient;
+    }
+    ctx.fillRect(0, 0, 256, 256);
+    ctx.globalCompositeOperation = "destination-in";
+    ctx.globalAlpha = 1;
+    ctx.drawImage(image, 0, 0, 256, 256);
+    ctx.globalCompositeOperation = "source-over";
+  });
+  requestAnimationFrame(paintLocalEffects);
+}
+
 renderPacks();
 renderHeroStickers();
 renderAll();
+if (IS_LOCAL_FILE) requestAnimationFrame(paintLocalEffects);
