@@ -111,7 +111,7 @@ h1, h2, p { margin-top: 0; }
 .tool-rail .danger { color: #d85d61; margin-top: 10px; }
 .rotation-control { width: 48px; padding: 9px 5px; display: grid; justify-items: center; gap: 7px; background: white; border: 1px solid var(--line); border-radius: 15px; box-shadow: 0 5px 15px rgba(66,45,36,.08); }
 .rotation-control label { display: grid; justify-items: center; gap: 2px; color: var(--muted); font-size: 9px; font-weight: 800; }
-.rotation-control output { color: var(--pink); font-size: 10px; }
+.rotation-control output { min-width: 34px; color: var(--pink); font-size: 10px; text-align: right; font-variant-numeric: tabular-nums; }
 .rotation-control input { width: 20px; height: 130px; margin: 0; writing-mode: vertical-lr; direction: rtl; accent-color: var(--pink); cursor: pointer; }
 .rotation-control input:disabled { opacity: .35; cursor: default; }
 .book-shell { background: #e9b1af; border-radius: 22px 35px 35px 22px; padding: 18px 22px 18px 28px; box-shadow: 0 25px 55px rgba(87,56,46,.18); position: relative; }
@@ -259,13 +259,14 @@ h1, h2, p { margin-top: 0; }
   .nav-btn span { display:block; margin:0 0 2px; font-size: 15px; }
   .hero{grid-template-columns:1fr;padding-top:20px}.hero-stickers{height:270px}.hero-stickers img{width:175px}
   .pack-grid{grid-template-columns:1fr}.pack-card{min-height:330px}.pack-art{height:180px}
-  .book-heading,.collection-hero{align-items:start}.book-heading>p{display:none}.workspace{grid-template-columns:1fr}.tool-rail{order:2;flex-direction:row;justify-content:center;align-items:center}.rotation-control{width:190px;padding:8px 12px;display:flex;align-items:center;gap:9px}.rotation-control label{display:flex;gap:5px;white-space:nowrap}.rotation-control input{width:125px;height:20px;writing-mode:horizontal-tb;direction:ltr}.book-shell{padding:13px 12px 13px 20px}.sticker-board{height:530px}
+  .book-heading,.collection-hero{align-items:start}.book-heading>p{display:none}.workspace{grid-template-columns:1fr}.tool-rail{order:2;flex-direction:row;justify-content:center;align-items:center}.rotation-control{width:205px;padding:8px 12px;display:grid;grid-template-columns:60px minmax(0,1fr);align-items:center;gap:8px}.rotation-control label{width:60px;display:grid;grid-template-columns:22px 34px;gap:4px;align-items:center;white-space:nowrap}.rotation-control input{width:100%;height:20px;writing-mode:horizontal-tb;direction:ltr}.book-shell{padding:13px 12px 13px 20px}.sticker-board{height:530px}
   .book-scale-control { margin: -15px 0 18px; width: 100%; }
   .sticker-tray{grid-template-columns:repeat(4,1fr)}.collection-grid{grid-template-columns:repeat(3,1fr)}.collection-card img{width:90px;height:90px}.collection-card{min-height:150px}
   .site-footer { padding-bottom: 18px; }
 }
 @media (max-width: 520px) {
   main{width:92vw}.view{padding-top:32px}.hero{min-height:0}.hero h1{font-size:42px}.hero-copy br{display:none}.hero-stickers{height:220px}.hero-stickers img{width:145px}.hero-stickers:before{width:260px;height:180px}
+  .rotation-control{width:180px;padding-inline:8px;grid-template-columns:58px minmax(0,1fr)}.tool-rail button{width:42px;height:42px}
   .section-heading>span{display:none}.sticker-tray{grid-template-columns:repeat(3,1fr)}.tray-head{align-items:start;gap:10px;flex-direction:column}.tray-card .sticker-visual{width:62px;height:62px}
   .collection-grid{grid-template-columns:repeat(2,1fr)}.completion{width:105px;height:105px}.modal-card{padding:27px 12px}.reveal-card .sticker-visual{width:88px;height:88px}.reveal-area{gap:5px}.reveal-card{padding:8px 3px}
   .home-update-log { grid-template-columns: 95px 1fr; margin-bottom: 22px; }
