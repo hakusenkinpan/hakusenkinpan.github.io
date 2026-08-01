@@ -49,7 +49,9 @@ const THEME_KEYS = Object.keys(CATALOG);
 const STICKERS_PER_PACK = 50;
 const STORAGE_KEY = "puchipuchi-sealbook-v1";
 const IS_LOCAL_FILE = location.protocol === "file:";
-document.documentElement.classList.toggle("file-protocol", IS_LOCAL_FILE);
+const IS_IOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const USE_CANVAS_EFFECTS = IS_LOCAL_FILE || IS_IOS;
+document.documentElement.classList.toggle("canvas-effects", USE_CANVAS_EFFECTS);
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 const stickerPath = (theme, design) => {
   const number = String(design + 1).padStart(3, "0");
@@ -310,8 +312,8 @@ document.addEventListener("keydown", e => {
   if ((e.key === "Delete" || e.key === "Backspace") && selectedId && document.querySelector("#bookView").classList.contains("active")) { e.preventDefault(); peelSelected(); }
 });
 
-function paintLocalEffects(time) {
-  if (!IS_LOCAL_FILE) return;
+function paintCanvasEffects(time) {
+  if (!USE_CANVAS_EFFECTS) return;
   document.querySelectorAll(".effect-rainbow > .sticker-effect-canvas, .effect-metallic > .sticker-effect-canvas").forEach(canvas => {
     const image = canvas.parentElement.querySelector(".sticker-base");
     if (!image?.complete || !image.naturalWidth) return;
@@ -340,10 +342,10 @@ function paintLocalEffects(time) {
     ctx.drawImage(image, 0, 0, 256, 256);
     ctx.globalCompositeOperation = "source-over";
   });
-  requestAnimationFrame(paintLocalEffects);
+  requestAnimationFrame(paintCanvasEffects);
 }
 
 renderPacks();
 renderHeroStickers();
 renderAll();
-if (IS_LOCAL_FILE) requestAnimationFrame(paintLocalEffects);
+if (USE_CANVAS_EFFECTS) requestAnimationFrame(paintCanvasEffects);
