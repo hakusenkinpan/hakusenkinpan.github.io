@@ -50,9 +50,11 @@ const STICKERS_PER_PACK = 50;
 const STORAGE_KEY = "puchipuchi-sealbook-v1";
 const IS_LOCAL_FILE = location.protocol === "file:";
 const IS_IOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
 const USE_CANVAS_RAINBOW = IS_LOCAL_FILE || IS_IOS;
 document.documentElement.classList.add("canvas-metallic");
 document.documentElement.classList.toggle("canvas-rainbow", USE_CANVAS_RAINBOW);
+document.documentElement.classList.toggle("android-device", IS_ANDROID);
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 const stickerPath = (theme, design) => {
   const number = String(design + 1).padStart(3, "0");
