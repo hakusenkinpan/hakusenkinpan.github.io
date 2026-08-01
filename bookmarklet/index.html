@@ -14,6 +14,7 @@
     <meta name="theme-color" content="#fff4b8">
     <title>おんJ用ブックマークレット</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -40,7 +41,9 @@
             <div class="howto-icon" aria-hidden="true">💡</div>
             <div>
                 <h2 id="howto-title">使いかた</h2>
-                <p>下の黄色いボタンをブラウザのブックマークバーへドラッグしてください。使いたいページを開いた状態で、登録したブックマークを押すと動きます。</p>
+                <p><strong>ドラッグで登録：</strong>下の黄色いボタンを、ブラウザのブックマークバーへドラッグしてください。</p>
+                <p><strong>テキストをコピーして登録：</strong>「テキストをコピー」を押し、ブラウザで新しいブックマークを作成します。作成したブックマークを編集し、URL欄の内容を消して、コピーしたテキストを貼り付けて保存してください。</p>
+                <p>登録後は、おんJのページを開いた状態でブックマークを押すと動きます。</p>
             </div>
         </section>
 
@@ -63,6 +66,13 @@
                 </div>
                 <p>忍法帖に表示されたモンスター名をクリックすると、「ドラクエ＋モンスター名」でGoogle検索します。</p>
                 <a class="bookmarklet" href="javascript:(()=>{document.querySelectorAll('font.name').forEach(e=>{const m=e.textContent.match(/■?忍【LV\d+,([^,\]】]+),[^\]】]+[\]】]/i);if(!m||e.dataset.dqSearch)return;e.dataset.dqSearch='1';e.style.cssText+=';cursor:pointer;text-decoration:underline';e.title='「ドラクエ '+m[1].trim()+'」を検索';e.addEventListener('click',a=>{a.preventDefault();a.stopPropagation();window.open('https://www.google.com/search?q='+encodeURIComponent('ドラクエ '+m[1].trim()),'_blank','noopener')})});alert('忍法帖のモンスター名をクリックすると検索できます')})()" title="ブックマークバーへドラッグしてください">モンスター名検索</a>
+
+                <div class="copy-area">
+                    <label for="bookmarklet-code">ブックマークレットのテキスト</label>
+                    <textarea id="bookmarklet-code" rows="5" readonly>javascript:(()=>{document.querySelectorAll('font.name').forEach(e=>{const m=e.textContent.match(/■?忍【LV\d+,([^,\]】]+),[^\]】]+[\]】]/i);if(!m||e.dataset.dqSearch)return;e.dataset.dqSearch='1';e.style.cssText+=';cursor:pointer;text-decoration:underline';e.title='「ドラクエ '+m[1].trim()+'」を検索';e.addEventListener('click',a=>{a.preventDefault();a.stopPropagation();window.open('https://www.google.com/search?q='+encodeURIComponent('ドラクエ '+m[1].trim()),'_blank','noopener')})});alert('忍法帖のモンスター名をクリックすると検索できます')})()</textarea>
+                    <button class="copy-button" id="copy-code" type="button">テキストをコピー</button>
+                    <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+                </div>
             </article>
 
         </section>
