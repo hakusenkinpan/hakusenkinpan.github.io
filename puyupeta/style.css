@@ -163,7 +163,7 @@ h1, h2, p { margin-top: 0; }
   background-size: 230% 100%;
   mix-blend-mode: normal;
   opacity: .34;
-  animation: metallicMask 2s ease-in-out infinite;
+  animation: metallicMask 2.8s ease-in-out infinite alternate;
 }
 .effect-rainbow > .sticker-effect,
 .effect-rainbow:not(:has(> .sticker-effect))::before {
@@ -176,9 +176,9 @@ h1, h2, p { margin-top: 0; }
   animation: rainbowMask 2.3s linear infinite;
 }
 @keyframes metallicMask {
-  0%,100% { background-position: 160% 0; filter: brightness(.95) contrast(1.05); opacity: .24; }
-  45% { background-position: 35% 0; filter: brightness(1.16) contrast(1.1); opacity: .43; }
-  75% { background-position: -60% 0; filter: brightness(1.02) contrast(1.08); opacity: .32; }
+  0% { background-position: 160% 0; filter: brightness(.95) contrast(1.05); opacity: .24; }
+  50% { background-position: 35% 0; filter: brightness(1.16) contrast(1.1); opacity: .43; }
+  100% { background-position: -60% 0; filter: brightness(1.02) contrast(1.08); opacity: .32; }
 }
 @property --rainbow-angle {
   syntax: "<angle>";
