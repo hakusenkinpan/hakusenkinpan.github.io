@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NNLTJRF5');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="おんJを見るときに便利な、かんたんブックマークレット集です。">
+    <meta name="theme-color" content="#fff4b8">
+    <title>おんJ用ブックマークレット</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNLTJRF5"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <main class="page">
+        <nav aria-label="メインナビゲーション">
+            <a class="home-button" href="../">
+                <span aria-hidden="true">←</span>
+                おもちゃ箱にもどる
+            </a>
+        </nav>
+
+        <header class="hero">
+            <span class="hero-icon" aria-hidden="true">🪄</span>
+            <p class="eyebrow">BOOKMARKLET TOOLS</p>
+            <h1>おんJ用<br>ブックマークレット</h1>
+            <p class="lead">ブックマークに入れるだけで、いつもの閲覧がちょっと便利になるミニツールです。</p>
+        </header>
+
+        <section class="howto" aria-labelledby="howto-title">
+            <div class="howto-icon" aria-hidden="true">💡</div>
+            <div>
+                <h2 id="howto-title">使いかた</h2>
+                <p>下の黄色いボタンをブラウザのブックマークバーへドラッグしてください。使いたいページを開いた状態で、登録したブックマークを押すと動きます。</p>
+            </div>
+        </section>
+
+        <section class="tools" aria-labelledby="tools-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">TOOLS</p>
+                    <h2 id="tools-title">べんりな道具</h2>
+                </div>
+                <span aria-hidden="true">✦</span>
+            </div>
+
+            <article class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon" aria-hidden="true">👾</span>
+                    <div>
+                        <p class="number">TOOL 01</p>
+                        <h3>モンスター名検索</h3>
+                    </div>
+                </div>
+                <p>忍法帖に表示されたモンスター名をクリックすると、「ドラクエ＋モンスター名」でGoogle検索します。</p>
+                <a class="bookmarklet" href="javascript:(()=>{document.querySelectorAll('font.name').forEach(e=>{const m=e.textContent.match(/■?忍【LV\d+,([^,\]】]+),[^\]】]+[\]】]/i);if(!m||e.dataset.dqSearch)return;e.dataset.dqSearch='1';e.style.cssText+=';cursor:pointer;text-decoration:underline';e.title='「ドラクエ '+m[1].trim()+'」を検索';e.addEventListener('click',a=>{a.preventDefault();a.stopPropagation();window.open('https://www.google.com/search?q='+encodeURIComponent('ドラクエ '+m[1].trim()),'_blank','noopener')})});alert('忍法帖のモンスター名をクリックすると検索できます')})()" title="ブックマークバーへドラッグしてください">モンスター名検索</a>
+            </article>
+
+        </section>
+
+        <aside class="note">
+            <strong>うまく動かないとき</strong>
+            <p>ブラウザやページの設定によっては動作しない場合があります。スマートフォンでは、ボタンを長押ししてリンク先をコピーし、ブックマークのURL欄へ貼り付けてください。</p>
+        </aside>
+
+        <footer>
+            <span>hakusen</span>
+            <a href="https://hakusenkinpan.github.io/policy/">プライバシーポリシー</a>
+        </footer>
+    </main>
+</body>
+</html>
