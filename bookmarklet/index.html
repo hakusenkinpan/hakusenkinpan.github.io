@@ -68,10 +68,29 @@
                 <a class="bookmarklet" href="javascript:(()=>{document.querySelectorAll('font.name').forEach(e=>{const m=e.textContent.match(/■?忍【LV\d+,([^,\]】]+),[^\]】]+[\]】]/i);if(!m||e.dataset.dqSearch)return;e.dataset.dqSearch='1';e.style.cssText+=';cursor:pointer;text-decoration:underline';e.title='「ドラクエ '+m[1].trim()+'」を検索';e.addEventListener('click',a=>{a.preventDefault();a.stopPropagation();window.open('https://www.google.com/search?q='+encodeURIComponent('ドラクエ '+m[1].trim()),'_blank','noopener')})});alert('忍法帖のモンスター名をクリックすると検索できます')})()" title="ブックマークバーへドラッグしてください">モンスター名検索</a>
 
                 <div class="copy-area">
-                    <label for="bookmarklet-code">ブックマークレットのテキスト</label>
-                    <textarea id="bookmarklet-code" rows="5" readonly>javascript:(()=>{document.querySelectorAll('font.name').forEach(e=>{const m=e.textContent.match(/■?忍【LV\d+,([^,\]】]+),[^\]】]+[\]】]/i);if(!m||e.dataset.dqSearch)return;e.dataset.dqSearch='1';e.style.cssText+=';cursor:pointer;text-decoration:underline';e.title='「ドラクエ '+m[1].trim()+'」を検索';e.addEventListener('click',a=>{a.preventDefault();a.stopPropagation();window.open('https://www.google.com/search?q='+encodeURIComponent('ドラクエ '+m[1].trim()),'_blank','noopener')})});alert('忍法帖のモンスター名をクリックすると検索できます')})()</textarea>
-                    <button class="copy-button" id="copy-code" type="button">テキストをコピー</button>
-                    <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+                    <label for="monster-code">ブックマークレットのテキスト</label>
+                    <textarea id="monster-code" rows="5" readonly>javascript:(()=>{document.querySelectorAll('font.name').forEach(e=>{const m=e.textContent.match(/■?忍【LV\d+,([^,\]】]+),[^\]】]+[\]】]/i);if(!m||e.dataset.dqSearch)return;e.dataset.dqSearch='1';e.style.cssText+=';cursor:pointer;text-decoration:underline';e.title='「ドラクエ '+m[1].trim()+'」を検索';e.addEventListener('click',a=>{a.preventDefault();a.stopPropagation();window.open('https://www.google.com/search?q='+encodeURIComponent('ドラクエ '+m[1].trim()),'_blank','noopener')})});alert('忍法帖のモンスター名をクリックすると検索できます')})()</textarea>
+                    <button class="copy-button" type="button">テキストをコピー</button>
+                    <p class="copy-status" role="status" aria-live="polite"></p>
+                </div>
+            </article>
+
+            <article class="tool-card">
+                <div class="tool-title">
+                    <span class="tool-icon" aria-hidden="true">💥</span>
+                    <div>
+                        <p class="number">TOOL 02</p>
+                        <h3>ぷゆ爆</h3>
+                    </div>
+                </div>
+                <p>ページ内の「🥺」を爆発させます。効果音が鳴るので、音量にご注意ください。</p>
+                <a class="bookmarklet" href="javascript:(()=>{const A=window.AudioContext||window.webkitAudioContext;if(A){const c=new A(),t=c.currentTime,b=c.createBuffer(1,c.sampleRate*.45,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const n=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();n.buffer=b;f.type='lowpass';f.frequency.setValueAtTime(2200,t);f.frequency.exponentialRampToValueAtTime(180,t+.45);g.gain.setValueAtTime(.35,t);g.gain.exponentialRampToValueAtTime(.001,t+.45);n.connect(f).connect(g).connect(c.destination);n.start(t);const o=c.createOscillator(),q=c.createGain();o.type='square';o.frequency.setValueAtTime(180,t);o.frequency.exponentialRampToValueAtTime(45,t+.18);q.gain.setValueAtTime(.12,t);q.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(q).connect(c.destination);o.start(t);o.stop(t+.2);setTimeout(()=>c.close(),700)}const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),a=[];while(w.nextNode())if(w.currentNode.parentElement?.closest('dd')&&w.currentNode.data.includes('🥺'))a.push(w.currentNode);a.forEach(n=>{const f=document.createDocumentFragment(),p=n.data.split('🥺');p.forEach((s,i)=>{f.append(s);if(i<p.length-1){const x=document.createElement('span');x.textContent='💥';x.style.cssText='display:inline-block;transition:transform .65s ease-out,opacity .65s;transform:scale(.4);';f.append(x);requestAnimationFrame(()=>requestAnimationFrame(()=>{x.style.transform='scale(2.5) rotate(25deg)';x.style.opacity='0'}));setTimeout(()=>x.remove(),700)}});n.replaceWith(f)})})()" title="ブックマークバーへドラッグしてください">ぷゆ爆</a>
+
+                <div class="copy-area">
+                    <label for="puyubaku-code">ブックマークレットのテキスト</label>
+                    <textarea id="puyubaku-code" rows="5" readonly>javascript:(()=>{const A=window.AudioContext||window.webkitAudioContext;if(A){const c=new A(),t=c.currentTime,b=c.createBuffer(1,c.sampleRate*.45,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const n=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();n.buffer=b;f.type='lowpass';f.frequency.setValueAtTime(2200,t);f.frequency.exponentialRampToValueAtTime(180,t+.45);g.gain.setValueAtTime(.35,t);g.gain.exponentialRampToValueAtTime(.001,t+.45);n.connect(f).connect(g).connect(c.destination);n.start(t);const o=c.createOscillator(),q=c.createGain();o.type='square';o.frequency.setValueAtTime(180,t);o.frequency.exponentialRampToValueAtTime(45,t+.18);q.gain.setValueAtTime(.12,t);q.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(q).connect(c.destination);o.start(t);o.stop(t+.2);setTimeout(()=>c.close(),700)}const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),a=[];while(w.nextNode())if(w.currentNode.parentElement?.closest('dd')&&w.currentNode.data.includes('🥺'))a.push(w.currentNode);a.forEach(n=>{const f=document.createDocumentFragment(),p=n.data.split('🥺');p.forEach((s,i)=>{f.append(s);if(i<p.length-1){const x=document.createElement('span');x.textContent='💥';x.style.cssText='display:inline-block;transition:transform .65s ease-out,opacity .65s;transform:scale(.4);';f.append(x);requestAnimationFrame(()=>requestAnimationFrame(()=>{x.style.transform='scale(2.5) rotate(25deg)';x.style.opacity='0'}));setTimeout(()=>x.remove(),700)}});n.replaceWith(f)})})()</textarea>
+                    <button class="copy-button" type="button">テキストをコピー</button>
+                    <p class="copy-status" role="status" aria-live="polite"></p>
                 </div>
             </article>
 
