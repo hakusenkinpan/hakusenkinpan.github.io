@@ -331,7 +331,7 @@ function paintLocalEffects(time) {
       gradient.addColorStop(.5, "#ffffff");
       gradient.addColorStop(.68, "#708398");
       gradient.addColorStop(1, "#f8ffff");
-      ctx.globalAlpha = .52;
+      ctx.globalAlpha = .34;
       ctx.fillStyle = gradient;
     }
     ctx.fillRect(0, 0, 256, 256);

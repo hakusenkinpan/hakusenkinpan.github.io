@@ -135,7 +135,7 @@ h1, h2, p { margin-top: 0; }
 .file-protocol .effect-rainbow > .sticker-effect-canvas,
 .file-protocol .effect-metallic > .sticker-effect-canvas { display: block; }
 .effect-metallic > .sticker-base {
-  filter: grayscale(.55) saturate(.65) brightness(1.04) contrast(1.16) drop-shadow(0 5px 4px rgba(55,32,28,.17));
+  filter: grayscale(.24) saturate(.86) brightness(1.02) contrast(1.08) drop-shadow(0 5px 4px rgba(55,32,28,.17));
 }
 .effect-rainbow > .sticker-base {
   filter:
@@ -161,8 +161,8 @@ h1, h2, p { margin-top: 0; }
   background:
     linear-gradient(115deg, rgba(75,88,103,.7) 0%, rgba(205,222,236,.95) 28%, #fff 43%, rgba(105,124,145,.82) 58%, #f8ffff 74%, rgba(85,101,120,.72) 100%);
   background-size: 230% 100%;
-  mix-blend-mode: hard-light;
-  opacity: .58;
+  mix-blend-mode: normal;
+  opacity: .34;
   animation: metallicMask 2s ease-in-out infinite;
 }
 .effect-rainbow > .sticker-effect,
@@ -176,9 +176,9 @@ h1, h2, p { margin-top: 0; }
   animation: rainbowMask 2.3s linear infinite;
 }
 @keyframes metallicMask {
-  0%,100% { background-position: 160% 0; filter: brightness(.92) contrast(1.1); opacity: .42; }
-  45% { background-position: 35% 0; filter: brightness(1.35) contrast(1.22); opacity: .66; }
-  75% { background-position: -60% 0; filter: brightness(1.04) contrast(1.15); opacity: .54; }
+  0%,100% { background-position: 160% 0; filter: brightness(.95) contrast(1.05); opacity: .24; }
+  45% { background-position: 35% 0; filter: brightness(1.16) contrast(1.1); opacity: .43; }
+  75% { background-position: -60% 0; filter: brightness(1.02) contrast(1.08); opacity: .32; }
 }
 @property --rainbow-angle {
   syntax: "<angle>";
