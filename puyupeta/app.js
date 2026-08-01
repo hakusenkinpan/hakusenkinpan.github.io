@@ -215,6 +215,7 @@ function renderBook() {
   document.querySelector("#emptyBoard").style.display = state.placed.length ? "none" : "grid";
   document.querySelector("#bookScale").value = state.bookScale;
   document.querySelector("#bookScaleValue").textContent = `${state.bookScale}%`;
+  updateRotationControl();
 }
 function setBookScale(value) {
   state.bookScale = Math.max(50, Math.min(100, Number(value) || 100));
@@ -225,10 +226,24 @@ function setBookScale(value) {
   clearTimeout(setBookScale.saveTimer);
   setBookScale.saveTimer = setTimeout(saveState, 120);
 }
-function rotateSelected(delta) {
+function setSelectedRotation(value) {
   const item = state.placed.find(x => x.id === selectedId);
-  if (!item) return showToast("シールを選んでね");
-  item.rotation = (item.rotation + delta) % 360; saveState(); renderBook();
+  if (!item) return;
+  item.rotation = Number(value);
+  document.querySelector(`[data-id="${selectedId}"]`)?.style.setProperty("--rotation", `${item.rotation}deg`);
+  document.querySelector("#rotationValue").textContent = `${Math.round(item.rotation)}°`;
+  clearTimeout(setSelectedRotation.saveTimer);
+  setSelectedRotation.saveTimer = setTimeout(saveState, 120);
+}
+function updateRotationControl() {
+  const slider = document.querySelector("#rotationSlider");
+  const output = document.querySelector("#rotationValue");
+  const item = state.placed.find(x => x.id === selectedId);
+  slider.disabled = !item;
+  if (!item) { slider.value = 0; output.textContent = "—"; return; }
+  const angle = ((Number(item.rotation) + 180) % 360 + 360) % 360 - 180;
+  slider.value = angle;
+  output.textContent = `${Math.round(angle)}°`;
 }
 function bringFront() {
   const item = state.placed.find(x => x.id === selectedId);
@@ -278,8 +293,8 @@ document.addEventListener("click", e => {
 document.querySelector("#closeModal").onclick = () => closeModal();
 document.querySelector(".modal-backdrop").onclick = () => closeModal();
 document.querySelector("#modalDone").onclick = () => closeModal(true);
-document.querySelector("#rotateLeft").onclick = () => rotateSelected(-15);
-document.querySelector("#rotateRight").onclick = () => rotateSelected(15);
+document.querySelector("#rotationSlider").addEventListener("input", event => setSelectedRotation(event.target.value));
+document.querySelector("#rotationSlider").addEventListener("change", saveState);
 document.querySelector("#bringFront").onclick = bringFront;
 document.querySelector("#peelSticker").onclick = peelSelected;
 document.querySelector("#bookScale").addEventListener("input", event => setBookScale(event.target.value));
@@ -291,10 +306,12 @@ board.addEventListener("pointerdown", e => {
   if (!el) {
     selectedId = null;
     board.querySelectorAll(".placed-sticker.selected").forEach(sticker => sticker.classList.remove("selected"));
+    updateRotationControl();
     return;
   }
   selectedId = el.dataset.id;
   board.querySelectorAll(".placed-sticker").forEach(sticker => sticker.classList.toggle("selected", sticker === el));
+  updateRotationControl();
   const rect = board.getBoundingClientRect();
   drag = { id: selectedId, rect }; el.setPointerCapture(e.pointerId);
 });

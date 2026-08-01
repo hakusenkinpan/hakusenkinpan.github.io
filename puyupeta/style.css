@@ -109,6 +109,11 @@ h1, h2, p { margin-top: 0; }
 .tool-rail button { width: 48px; height: 48px; border: 1px solid var(--line); background: white; border-radius: 15px; cursor: pointer; font-size: 21px; box-shadow: 0 5px 15px rgba(66,45,36,.08); }
 .tool-rail button:hover { background: #fff1f4; border-color: var(--pink-soft); }
 .tool-rail .danger { color: #d85d61; margin-top: 10px; }
+.rotation-control { width: 48px; padding: 9px 5px; display: grid; justify-items: center; gap: 7px; background: white; border: 1px solid var(--line); border-radius: 15px; box-shadow: 0 5px 15px rgba(66,45,36,.08); }
+.rotation-control label { display: grid; justify-items: center; gap: 2px; color: var(--muted); font-size: 9px; font-weight: 800; }
+.rotation-control output { color: var(--pink); font-size: 10px; }
+.rotation-control input { width: 20px; height: 130px; margin: 0; writing-mode: vertical-lr; direction: rtl; accent-color: var(--pink); cursor: pointer; }
+.rotation-control input:disabled { opacity: .35; cursor: default; }
 .book-shell { background: #e9b1af; border-radius: 22px 35px 35px 22px; padding: 18px 22px 18px 28px; box-shadow: 0 25px 55px rgba(87,56,46,.18); position: relative; }
 .sticker-board {
   height: 590px; position: relative; overflow: hidden; border-radius: 10px 24px 24px 9px; touch-action: none;
@@ -254,7 +259,7 @@ h1, h2, p { margin-top: 0; }
   .nav-btn span { display:block; margin:0 0 2px; font-size: 15px; }
   .hero{grid-template-columns:1fr;padding-top:20px}.hero-stickers{height:270px}.hero-stickers img{width:175px}
   .pack-grid{grid-template-columns:1fr}.pack-card{min-height:330px}.pack-art{height:180px}
-  .book-heading,.collection-hero{align-items:start}.book-heading>p{display:none}.workspace{grid-template-columns:1fr}.tool-rail{order:2;flex-direction:row;justify-content:center}.book-shell{padding:13px 12px 13px 20px}.sticker-board{height:530px}
+  .book-heading,.collection-hero{align-items:start}.book-heading>p{display:none}.workspace{grid-template-columns:1fr}.tool-rail{order:2;flex-direction:row;justify-content:center;align-items:center}.rotation-control{width:190px;padding:8px 12px;display:flex;align-items:center;gap:9px}.rotation-control label{display:flex;gap:5px;white-space:nowrap}.rotation-control input{width:125px;height:20px;writing-mode:horizontal-tb;direction:ltr}.book-shell{padding:13px 12px 13px 20px}.sticker-board{height:530px}
   .book-scale-control { margin: -15px 0 18px; width: 100%; }
   .sticker-tray{grid-template-columns:repeat(4,1fr)}.collection-grid{grid-template-columns:repeat(3,1fr)}.collection-card img{width:90px;height:90px}.collection-card{min-height:150px}
   .site-footer { padding-bottom: 18px; }
