@@ -50,8 +50,9 @@ const STICKERS_PER_PACK = 50;
 const STORAGE_KEY = "puchipuchi-sealbook-v1";
 const IS_LOCAL_FILE = location.protocol === "file:";
 const IS_IOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-const USE_CANVAS_EFFECTS = IS_LOCAL_FILE || IS_IOS;
-document.documentElement.classList.toggle("canvas-effects", USE_CANVAS_EFFECTS);
+const USE_CANVAS_RAINBOW = IS_LOCAL_FILE || IS_IOS;
+document.documentElement.classList.add("canvas-metallic");
+document.documentElement.classList.toggle("canvas-rainbow", USE_CANVAS_RAINBOW);
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
 const stickerPath = (theme, design) => {
   const number = String(design + 1).padStart(3, "0");
@@ -313,8 +314,10 @@ document.addEventListener("keydown", e => {
 });
 
 function paintCanvasEffects(time) {
-  if (!USE_CANVAS_EFFECTS) return;
-  document.querySelectorAll(".effect-rainbow > .sticker-effect-canvas, .effect-metallic > .sticker-effect-canvas").forEach(canvas => {
+  const selector = USE_CANVAS_RAINBOW
+    ? ".effect-rainbow > .sticker-effect-canvas, .effect-metallic > .sticker-effect-canvas"
+    : ".effect-metallic > .sticker-effect-canvas";
+  document.querySelectorAll(selector).forEach(canvas => {
     const image = canvas.parentElement.querySelector(".sticker-base");
     if (!image?.complete || !image.naturalWidth) return;
     const ctx = canvas.getContext("2d");
@@ -348,4 +351,4 @@ function paintCanvasEffects(time) {
 renderPacks();
 renderHeroStickers();
 renderAll();
-if (USE_CANVAS_EFFECTS) requestAnimationFrame(paintCanvasEffects);
+requestAnimationFrame(paintCanvasEffects);
