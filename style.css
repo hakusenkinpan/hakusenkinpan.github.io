@@ -165,6 +165,7 @@
         .cards li:nth-child(4) .icon { background: var(--green); }
         .cards li:nth-child(5) .icon { background: var(--orange); }
         .cards li:nth-child(6) .icon { background: var(--yellow-200); }
+        .cards li:nth-child(7) .icon { background: var(--pink); }
 
         .card-copy {
             min-width: 0;
