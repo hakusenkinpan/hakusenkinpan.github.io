@@ -28,7 +28,7 @@
         <div class="jar-wrap" id="jarWrap"><div class="jar" id="currentJar"><div class="jar-shine"></div><div class="milk" id="milk"><div class="wave"></div></div><div class="jar-label"><small>MILK</small><b id="jarDate"></b><span id="jarAmount">0 / 1,000 ml</span></div></div></div>
       </div>
       <div class="control-card">
-        <div class="dose-switch" role="radiogroup" aria-label="注ぐ量"><button data-dose="2">little<small>2 ml</small></button><button data-dose="3" class="active">medium<small>3 ml</small></button><button data-dose="5">many<small>5 ml</small></button><button data-dose="995">test<small>995 ml</small></button></div>
+        <div class="dose-switch" role="radiogroup" aria-label="注ぐ量"><button data-dose="2">little<small>2 ml</small></button><button data-dose="3" class="active">medium<small>3 ml</small></button><button data-dose="5">many<small>5 ml</small></button></div>
         <button id="pourBtn" class="pour-btn"><span>＋</span><b>ミルクを注ぐ</b><small id="pourStatus">3 ml</small></button>
         <div class="daily"><span>本日の記録</span><b><i id="dailyCount">0</i> 回</b><b><i id="dailyAmount">0</i> ml</b></div>
         <button id="holdCurrent" class="secondary">手に取る</button>
@@ -40,7 +40,7 @@
     <section id="shelfView" class="view panel-view"><div class="panel-head"><div><p class="eyebrow">BOTTLE ARCHIVE</p><h2>瓶棚</h2></div></div><div id="shelf" class="shelf"></div></section>
   </main>
 
-  <dialog id="settings"><form method="dialog"><button class="close" aria-label="閉じる">×</button><p class="eyebrow">MILK LAB</p><h2>ミルクの調整</h2><label>色 <input id="milkColor" type="color" value="#e6dabc"></label><button type="button" id="openReset" class="reset-link">データをリセット</button></form></dialog>
+  <dialog id="settings"><form method="dialog"><button class="close" aria-label="閉じる">×</button><p class="eyebrow">MILK LAB</p><h2>ミルクの調整</h2><label>色 <input id="milkColor" type="color" value="#dfd1b9"></label><button type="button" id="openReset" class="reset-link">データをリセット</button></form></dialog>
   <dialog id="resetCode" class="reset-dialog"><div class="reset-inner"><button type="button" class="close" id="closeResetCode" aria-label="閉じる">×</button><p class="eyebrow">DATA RESET</p><h2>確認コード</h2><p>表示された4桁の数字を入力してください。</p><strong id="resetNumber" class="reset-number"></strong><input id="resetInput" class="reset-input" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-label="4桁の確認コード"><p id="resetError" class="reset-error" role="alert"></p><button type="button" id="verifyReset" class="reset-next">確認する</button></div></dialog>
   <dialog id="resetFinal" class="reset-dialog"><div class="reset-inner final-reset"><p class="eyebrow">FINAL CHECK</p><span class="reset-warning" aria-hidden="true">!</span><h2>すべての記録を<br>削除しますか？</h2><p>瓶・カレンダー・設定は元に戻せません。</p><div class="confirm-actions"><button type="button" id="cancelReset">やめる</button><button type="button" id="executeReset" class="danger">すべて削除</button></div></div></dialog>
   <dialog id="inspect"><form method="dialog"><button class="close" aria-label="閉じる">×</button><p class="eyebrow">HOLD THE BOTTLE</p><h2 id="inspectTitle">瓶を手に取る</h2><div id="physicsBox"><div id="heldBottle"><div class="cork" aria-hidden="true"></div><div id="physicsJar" class="mini-jar"><div class="mini-milk"></div></div></div></div><p>瓶をドラッグ。下の操作でも遊べます。</p><div class="inspect-actions"><button type="button" id="tiltLeft">↶ 傾ける</button><button type="button" id="shake">↔ 振る</button><button type="button" id="tiltRight">傾ける ↷</button></div></form></dialog>
