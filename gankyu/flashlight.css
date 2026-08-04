@@ -1,5 +1,6 @@
 .flashlight-button { border: 0; border-left: 1px solid var(--line); padding: 12px 14px; background: transparent; color: #a6a9a3; font: 10px ui-monospace, monospace; letter-spacing: .08em; cursor: pointer; }
 .flashlight-button span { margin-right: 6px; color: #747872; }
+.flashlight-button b { font: inherit; }
 .flashlight-button.active { background: var(--acid); color: #111413; }
 .flashlight-button.active span { color: #111413; text-shadow: 0 0 7px #fff; }
 .flashlight-button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
