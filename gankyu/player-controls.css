@@ -1,0 +1,9 @@
+.info-panel .coordinates { min-width: 205px; }
+.scale-panel { position: absolute; z-index: 3; right: 32px; top: 112px; width: 245px; padding: 12px 13px 10px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(16px); }
+.scale-panel label, .scale-panel > div { display: flex; justify-content: space-between; align-items: center; }
+.scale-panel label span { color: #777c76; font: 8px ui-monospace, monospace; letter-spacing: .16em; }
+.scale-panel output { color: var(--ink); font: 500 10px ui-monospace, monospace; }
+.scale-panel input { width: 100%; margin: 11px 0 6px; accent-color: var(--acid); cursor: pointer; }
+.scale-panel > div { color: #6f746e; font: 7px ui-monospace, monospace; }
+@media (max-width: 700px) { .info-panel { right: 18px; flex-wrap: wrap; } .info-panel .coordinates { min-width: 190px; } .scale-panel { right: 18px; top: 170px; width: 210px; } }
+@media (max-width: 460px) { .info-panel > div:last-child { display: none; } .info-panel .coordinates { display: block; flex: 1; } .scale-panel { top: 139px; } }
