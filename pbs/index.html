@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NNLTJRF5');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#130d24">
+  <title>ぷゆブロックサバイバル</title>
+  <meta name="description" content="🥺を弾いて育てる、装備収集型ブロック崩しサバイバル。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNLTJRF5"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-ball">🥺</span><div><p>PUYU BLOCK</p><h1>ぷゆブロック<br>サバイバル</h1></div></div>
+      <div class="top-actions">
+        <label class="goal-control">突破ライン <input id="clearTarget" type="number" min="50" max="100" value="90" aria-label="ウェーブ突破に必要な破壊率">%</label>
+        <button id="soundBtn" class="icon-btn" aria-label="サウンド切り替え">♪ ON</button>
+        <button id="helpBtn" class="icon-btn" aria-label="遊び方を表示">?</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hud" aria-label="ゲーム情報">
+        <div><span>WAVE</span><strong id="wave">01</strong></div>
+        <div><span>SCORE</span><strong id="score">000000</strong></div>
+        <div><span>DESTROYED / RATE</span><strong id="destroyed">0 / 0 · 0.0%</strong></div>
+        <div class="timer-card"><span>TIME</span><strong id="timer">45.0</strong></div>
+      </section>
+
+      <section class="game-layout">
+        <aside class="panel stats-panel">
+          <h2>STATUS</h2>
+          <dl>
+            <div><dt>ボールパワー</dt><dd id="statPower">1</dd></div>
+            <div><dt>ボール速度</dt><dd id="statSpeed">1.0×</dd></div>
+            <div><dt>ラケット</dt><dd id="statPaddle">100</dd></div>
+            <div><dt>復活時間</dt><dd id="statRespawn">2.0s</dd></div>
+            <div><dt>ボール個数</dt><dd id="statBalls">1</dd></div>
+          </dl>
+          <div class="xp-wrap"><div class="xp-label"><span>NEXT UPGRADE</span><b id="xpText">0 / 75</b></div><div class="xp-track"><i id="xpBar"></i></div></div>
+          <div class="legend"><span><i class="dot ball-dot"></i>球POWER</span><span><i class="dot block-dot"></i>敵POWER</span></div>
+        </aside>
+
+        <section class="arena-wrap">
+          <canvas id="gameCanvas" width="900" height="620" aria-label="ぷゆブロックサバイバルのゲーム画面"></canvas>
+          <div id="countdown" class="countdown hidden"></div>
+          <div id="startOverlay" class="overlay">
+            <div class="start-mark">🥺</div>
+            <p class="eyebrow">READY TO SURVIVE?</p>
+            <h2>ブロックを壊して<br>ぷゆを強くしよう。</h2>
+            <p>マウスでラケットを操作。<br>45秒で <b id="startTarget">90</b>% 壊せば次のウェーブへ。</p>
+            <button id="startBtn" class="primary-btn">ゲームスタート <span>→</span></button>
+          </div>
+          <div id="choiceOverlay" class="overlay choice-overlay hidden">
+            <p class="eyebrow" id="choiceEyebrow">LEVEL UP</p>
+            <h2 id="choiceTitle">強化をひとつ選べ</h2>
+            <div id="choiceList" class="choice-list"></div>
+          </div>
+          <div id="resultOverlay" class="overlay hidden">
+            <p class="eyebrow" id="resultEyebrow">SURVIVAL OVER</p>
+            <h2 id="resultTitle">ゲームオーバー</h2>
+            <p id="resultText"></p>
+            <button id="restartBtn" class="primary-btn">もう一度挑戦 <span>↻</span></button>
+          </div>
+        </section>
+
+        <aside class="panel equipment-panel">
+          <h2>EQUIPMENT <span id="equipCount">0 / 5</span></h2>
+          <div id="equipmentSlots" class="equipment-slots"></div>
+          <p class="equip-note">同じ装備を取るとレベルアップ。<br>各装備の最大レベルは5です。</p>
+          <div class="wave-rule"><span>WAVE CLEAR <b id="clearGoal">GOAL 90%</b></span><strong id="rulePercent">0.0%</strong><div class="rule-track"><i id="waveProgress"></i><em id="bonusMark">ALL CLEAR = BONUS</em></div></div>
+        </aside>
+      </section>
+      <p class="mouse-hint">↔ マウス / タッチでラケットを動かす</p>
+    </main>
+
+    <footer><span>© hakusen</span><a href="https://hakusenkinpan.github.io/policy/" target="_blank" rel="noopener">プライバシーポリシー</a></footer>
+  </div>
+
+  <dialog id="helpDialog">
+    <button id="closeHelp" class="dialog-close" aria-label="閉じる">×</button>
+    <p class="eyebrow">HOW TO PLAY</p><h2>遊び方</h2>
+    <ol><li>マウスかタッチでラケットを動かし、🥺を弾き返します。</li><li>球とブロックは衝突時に、お互いのPOWER分のダメージを受けます。</li><li>球POWERが0になると反射して1に戻り、ラケットに触れると上限まで回復します。</li><li>ポイントが貯まったら、3つの候補から強化を選びます。</li><li>制限時間までに突破ライン以上を壊せば次のウェーブ。全破壊ならボーナス装備です。</li></ol>
+  </dialog>
+  <script src="stages.js"></script>
+  <script src="equipment.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
