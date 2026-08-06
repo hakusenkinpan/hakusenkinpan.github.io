@@ -14,8 +14,16 @@ const rim=new THREE.DirectionalLight(0xb7ca91,2);rim.position.set(12,8,-15);scen
 const fossil=new THREE.Group(); fossil.name='Voxel_Tyrannosaurus_Fossil'; scene.add(fossil);
 const geo=new THREE.BoxGeometry(1,1,1); const mat=new THREE.MeshStandardMaterial({color:0xd8cba7,roughness:.82,metalness:.03});
 const edgeMat=new THREE.LineBasicMaterial({color:0x796e55,transparent:true,opacity:.32});
-function cube(x,y,z,sx=.72,sy=.72,sz=.72){const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=m.receiveShadow=true;fossil.add(m);return m}
-function bone(a,b,w=.48){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),d=A.distanceTo(B),mid=A.clone().add(B).multiplyScalar(.5);const m=cube(mid.x,mid.y,mid.z,w,d,w);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),B.clone().sub(A).normalize());return m}
+const GRID=.62, BLOCK=.56, occupied=new Map();
+function cube(x,y,z){
+  const gx=Math.round(x/GRID),gy=Math.round(y/GRID),gz=Math.round(z/GRID),key=`${gx},${gy},${gz}`;
+  if(occupied.has(key))return occupied.get(key);
+  const m=new THREE.Mesh(geo,mat);m.position.set(gx*GRID,gy*GRID,gz*GRID);m.scale.setScalar(BLOCK);m.castShadow=m.receiveShadow=true;fossil.add(m);occupied.set(key,m);return m
+}
+function bone(a,b){
+  const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),distance=A.distanceTo(B),steps=Math.max(1,Math.ceil(distance/(GRID*.45)));
+  for(let i=0;i<=steps;i++){const p=A.clone().lerp(B,i/steps);cube(p.x,p.y,p.z)}
+}
 function chain(points,w=.46){for(let i=0;i<points.length-1;i++)bone(points[i],points[i+1],Math.max(.22,w-i*.012));points.forEach((p,i)=>cube(...p,Math.max(.25,w*1.13-i*.01))) }
 
 // Spine and long counterbalancing tail (side view runs on X axis).
@@ -46,7 +54,7 @@ chain([[-3.7,9.8,0],[-3.2,8.2,0],[-2.8,6.5,0]],.36);bone([-4.5,10.2,-2.5],[-3.7,
 // Sacral processes and tail chevrons.
 for(let i=0;i<10;i++){const p=spine[i+3];cube(p[0],p[1]+.72,p[2],.25,.65,.25);if(i>2)bone([p[0],p[1]-.3,0],[p[0]+.25,p[1]-1,0],.22)}
 // subtle voxel edge grid
-fossil.traverse(o=>{if(o.isMesh){const e=new THREE.LineSegments(new THREE.EdgesGeometry(geo),edgeMat);e.scale.copy(o.scale);e.position.copy(o.position);e.quaternion.copy(o.quaternion);fossil.add(e)}});
+fossil.traverse(o=>{if(o.isMesh){const e=new THREE.LineSegments(new THREE.EdgesGeometry(geo),edgeMat);e.scale.setScalar(BLOCK);e.position.copy(o.position);fossil.add(e)}});
 fossil.position.y=-.25;
 const floor=new THREE.Mesh(new THREE.PlaneGeometry(80,50),new THREE.ShadowMaterial({color:0x000000,opacity:.38}));floor.rotation.x=-Math.PI/2;floor.position.y=-.12;floor.receiveShadow=true;scene.add(floor);
 const grid=new THREE.GridHelper(80,80,0x34372f,0x252721);grid.position.y=-.1;grid.material.transparent=true;grid.material.opacity=.28;scene.add(grid);
